@@ -1,0 +1,10 @@
+{
+    "name": "theyawningportal",
+    "version": "1.0",
+    "description": "",
+    "main": "TheYawningPortal.js",
+    "author": "King_Hector",
+    "dependencies": {
+        "discord.js": "^13.1.0"
+    }
+}
