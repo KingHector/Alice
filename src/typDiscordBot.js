@@ -1,17 +1,18 @@
 const Discord = require('discord.js')
 const fs = require("fs");
 const client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MESSAGES']})
+const config = require('../config.json');
 
 //Commands Enabler
 const prefix = '!';
 
 client.commands = new Discord.Collection();
 
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('./src/commands/').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles)
 {
-    const command = require(`./commands/${file}`);
+    const command = require(`../src/commands/${file}`);
 
     client.commands.set(command.name, command);
 }
@@ -26,7 +27,7 @@ client.on('messageCreate', message =>
         
         for (const file of commandFiles)
         {
-            const command_file = require(`./commands/${file}`);
+            const command_file = require(`../src/commands/${file}`);
             if (command === command_file.name)
             {
                 client.commands.get(command_file.name).execute(message, args);
@@ -41,4 +42,4 @@ client.once('ready', () =>
     console.log('Hello World!')
 })
 
-client.login('ODc3OTUxMTcxMDU3MzAzNTgz.YR6Fvg.qeHHDzpDEMvd2zosS5QHVmgFXts')
+client.login(config['Bot-Token'])
