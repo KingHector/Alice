@@ -1,7 +1,4 @@
-const { MessageEmbed } = require("discord.js")
-const config = require('../config.json');
-
-module.exports = (Discord, client, message) =>
+module.exports = (Discord, client, ban) =>
 {
     /*
     const loggingChannel = bot.channels.cache.find(channel => channel.name === config["Something-Settings"]["Logging-Channel"])
@@ -10,7 +7,8 @@ module.exports = (Discord, client, message) =>
         .setColor('YELLOW')
         .setTitle('TEST')
 
-    client.channels.cache.get('884398850557755442').send('TEST')    
+    client.channels.cache.get(loggingChannel).send(banAddLog)    
     */
+
    console.log('TEST')
 }
