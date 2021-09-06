@@ -3,7 +3,7 @@ module.exports =
     name: "kick",
     description: "Kick any player from your server.",
 
-    execute(message, args)
+    async execute(client, message, args)
     {
         const member = message.mentions.users.first();
 
@@ -14,7 +14,7 @@ module.exports =
                 const targeted_member = message.guild.members.cache.get(member.id);
 
                 if (!targeted_member.permissions.has('ADMINISTRATOR'))
-                    targeted_member.kick();
+                    targeted_member.kick(args[1]);
                 else
                     message.channel.send('**You cannot kick this member.**');     
             }

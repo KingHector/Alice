@@ -3,7 +3,7 @@ module.exports =
     name: "ban",
     description: "Ban any player from your server.",
 
-    execute(message, args)
+    async execute(client, message, args)
     {
         const member = message.mentions.users.first();
 

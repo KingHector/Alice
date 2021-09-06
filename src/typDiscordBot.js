@@ -1,45 +1,15 @@
 const Discord = require('discord.js')
 const fs = require("fs");
 const client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MESSAGES']})
-const config = require('../config.json');
-
-//Commands Enabler
-const prefix = '!';
+const config = require('./config.json');
 
 client.commands = new Discord.Collection();
+client.events = new Discord.Collection();
 
-const commandFiles = fs.readdirSync('./src/commands/').filter(file => file.endsWith('.js'));
-
-for (const file of commandFiles)
-{
-    const command = require(`../src/commands/${file}`);
-
-    client.commands.set(command.name, command);
-}
-
-//Commands Sticher
-client.on('messageCreate', message =>
-{
-    if (message.content.startsWith(prefix) || !message.author.bot) 
+['commandHandler', 'eventHandler'].forEach(handler => 
     {
-        const args = message.content.slice(prefix.length).split(/ +/);
-        const command = args.shift().toLowerCase();
-        
-        for (const file of commandFiles)
-        {
-            const command_file = require(`../src/commands/${file}`);
-            if (command === command_file.name)
-            {
-                client.commands.get(command_file.name).execute(message, args);
-            }
-        }
-    }   
-})
+        require(`./handlers/${handler}`)(client, Discord)
+    })
 
-//OnEnable
-client.once('ready', () =>
-{
-    console.log('Hello World!')
-})
 
 client.login(config['Bot-Token'])
