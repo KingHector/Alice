@@ -1,6 +1,8 @@
+const config = require('../config.json');
+
 module.exports = (Discord, client, message) =>
 {
-    const prefix = '!'
+    const prefix = config['Main-Settings']['Command-Prefix']
 
     if (message.content.startsWith(prefix) && !message.author.bot)
     {

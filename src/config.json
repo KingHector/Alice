@@ -1,4 +1,12 @@
 {
-    "Bot-Token": "ODc3OTUxMTcxMDU3MzAzNTgz.YR6Fvg.qeHHDzpDEMvd2zosS5QHVmgFXts",
-    "Prefix": "!"
+    "Main-Settings":
+    {
+        "Bot-Token": "ODc3OTUxMTcxMDU3MzAzNTgz.YR6Fvg.qeHHDzpDEMvd2zosS5QHVmgFXts",
+        "Command-Prefix": "!"
+    },
+
+    "Something-Settings":
+    {
+        "Logging-Channel": "modlog"
+    }
 }

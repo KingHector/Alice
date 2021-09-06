@@ -1,4 +1,4 @@
-module.exports = (client, Discord, message) =>
+module.exports = (Discord, client, message) =>
 {
     console.log('Bot is Online!')
 }
