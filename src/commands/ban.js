@@ -3,7 +3,7 @@ module.exports =
     name: "ban",
     description: "Ban any player from your server.",
 
-    async execute(client, message, args)
+    async execute(client, message, args, Discord)
     {
         const member = message.mentions.users.first();
 
@@ -11,10 +11,10 @@ module.exports =
         {
            if (member)
             {
-                const targeted_member = message.guild.members.cache.get(member.id);
+                const targetedMember = message.guild.members.cache.get(member.id);
 
-                if (!targeted_member.permissions.has('ADMINISTRATOR'))
-                    targeted_member.ban(args[1]);
+                if (!targetedMember.permissions.has('ADMINISTRATOR'))
+                    targetedMember.ban(args[1]);
                 else
                     message.channel.send('**You cannot ban this member.**');     
             }

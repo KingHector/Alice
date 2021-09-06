@@ -11,5 +11,4 @@ client.events = new Discord.Collection();
         require(`./handlers/${handler}`)(client, Discord)
     })
 
-
 client.login(config['Bot-Token'])

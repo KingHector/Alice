@@ -3,7 +3,7 @@ module.exports =
     name: "kick",
     description: "Kick any player from your server.",
 
-    async execute(client, message, args)
+    async execute(client, message, args, Discord)
     {
         const member = message.mentions.users.first();
 
