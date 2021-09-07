@@ -5,21 +5,24 @@ module.exports =
 
     async execute(client, message, args, Discord)
     {
-        const member = message.mentions.users.first();
+        const member = message.mentions.users.first()
+        console.log(member.id)
 
         if (message.member.permissions.has('BAN_MEMBERS'))
         {
-           if (member)
+            if (args.length >= 1)
             {
-                const targetedMember = message.guild.members.cache.get(member.id);
-
+                //const targetedMember = message.guild.members.cache.get(member.id)
+                
+                /*
                 if (!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot)
-                    targetedMember.ban(args[1]);
-                else
-                    message.channel.send('**You cannot ban this member.**');     
+                    targetedMember.ban(args[1])
+                else //Member is Admin
+                    message.channel.send('**You cannot ban this member.**')
+                    */
             }
             else //No member specified
-                message.channel.send('**You need to specify which member to ban.**');     
+                message.channel.send('**You need to specify which member to ban.**')  
         }
     }
 }

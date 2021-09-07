@@ -1,14 +1,16 @@
-module.exports = (Discord, client, ban) =>
+const config = require('../config.json')
+const { MessageEmbed } = require('discord.js')
+
+module.exports = (Discord, client, user) =>
 {
     /*
-    const loggingChannel = bot.channels.cache.find(channel => channel.name === config["Something-Settings"]["Logging-Channel"])
+    const loggingChannel = client.channels.cache.find(channel => channel.name === config['Something-Settings']['Logging-Channel'])
 
     const banAddLog = new MessageEmbed()
-        .setColor('YELLOW')
+        .setColor('RED')
         .setTitle('TEST')
-
-    client.channels.cache.get(loggingChannel).send(banAddLog)    
+        .setDescription('YOUR MOM')
+       
+    client.channels.cache.get(loggingChannel['guildId']).send({ embeds: [banAddLog] })    
     */
-
-   console.log('TEST')
 }
