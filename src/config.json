@@ -8,5 +8,10 @@
     "Something-Settings":
     {
         "Logging-Channel": "modlog"
+    },
+
+    "Graphical-Settings":
+    {
+        "Ban-Image": "https://i.imgur.com/wIoapVT.png"
     }
 }
