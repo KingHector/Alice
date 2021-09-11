@@ -13,6 +13,7 @@
 
     "Graphical-Settings":
     {
-        "Ban-Image": "https://i.imgur.com/wIoapVT.png"
+        "Ban-Image": "https://i.imgur.com/wIoapVT.png",
+        "Kick-Image": "https://i.imgur.com/FUrTTlc.png"
     }
 }

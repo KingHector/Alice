@@ -11,12 +11,12 @@ module.exports =
     async execute(client, message, args, Discord)
     {
         const member = message.mentions.users.first()
-        const reason = message.content.slice(prefix.length + 2).slice('ban'.length).slice(args[0].length)
-
+        
         if (message.member.permissions.has('BAN_MEMBERS'))
         {
             if (args.length >= 1)
             {
+                const reason = message.content.slice(prefix.length + 2).slice('ban'.length).slice(args[0].length)
                 const targetedMember = message.guild.members.cache.get(member.id)
                 
                 if (!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot)
@@ -44,8 +44,8 @@ function banLog(client, member, message, reason)
         .setTitle('BAN - Case #')
         .setFields
         (
-            { name: 'User', value: `<@${member.id}>`, inline: true},
-            { name: 'Moderator', value: `<@${message.author.id}>`, inline: true },
+            { name: 'User', value: `${member.tag}\n${member}`, inline: true},
+            { name: 'Moderator', value: `${message.author.tag}\n${message.author}`, inline: true},
             { name: 'Reason', value: '```' + `${reason} ` + '```'}
         )
         .setThumbnail(config['Graphical-Settings']['Ban-Image'])
