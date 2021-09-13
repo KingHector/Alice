@@ -5,9 +5,8 @@
         "Command-Prefix": "!"
     },
 
-    "Something-Settings":
+    "Channel-Settings":
     {
-        "Announcements-Channel": "announcements",
         "Logging-Channel": "modlog"
     },
 

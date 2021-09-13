@@ -36,7 +36,7 @@ module.exports =
 
 function banLog(client, member, message, reason)  
 {
-    const loggingChannel = client.channels.cache.find(channel => channel.name === config['Something-Settings']['Logging-Channel'])
+    const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
     const date = new Date()    
 
     const banAddLog = new MessageEmbed()
