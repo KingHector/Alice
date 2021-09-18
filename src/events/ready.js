@@ -4,13 +4,45 @@ module.exports = (Discord, client, message) =>
 {
     console.log('Bot is Online!')
 
-    channelCheck(client, config['Channel-Settings']['Logging-Channel'])
+    const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
+
+    //Roles Creator
+    roleCheck(guild, 'Muted')
+
+    //Channel Creator
+    channelCheck(guild, config['Channel-Settings']['Logging-Channel'])
 }
 
-function channelCheck (client, configSection)
+function channelCheck (guild, name)
 {
-    const loggingChannel = client.channels.cache.find(channel => channel.name === configSection)
-    const missingMessage = '%cChannel named ' + configSection + ' does not exist. Make sure you have configured config.json and have created the correct channel.' 
+    const loggingChannel = guild.channels.cache.find(channel => channel.name === name)
     
-    const check = loggingChannel ? null : console.log(missingMessage, 'color: yellow')
+    if (!loggingChannel)
+    {
+        guild.channels.create(name,
+            {
+                permissionOverwrites: 
+                [
+                    {
+                        id: guild.roles.everyone,
+                        deny: ['VIEW_CHANNEL'] 
+                    }
+                ]
+            })
+    }
+}
+
+function roleCheck (guild, roleName)
+{
+    const roleExists = guild.roles.cache.find(role => role.name === roleName)
+    
+    if (!roleExists)
+    {
+        const muteRole = guild.roles.create(
+            {
+                name: roleName,
+                color: 'DEFAULT',
+                permissions: ['VIEW_CHANNEL', 'CREATE_INSTANT_INVITE', 'CHANGE_NICKNAME', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY', 'CONNECT', 'SPEAK', 'USE_VAD']
+            })    
+    }
 }

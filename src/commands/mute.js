@@ -5,43 +5,44 @@ const prefix = config['Main-Settings']['Command-Prefix']
 
 module.exports = 
 {
-    name: 'kick',
-    description: 'Kick any player from your server.',
+    name: 'mute',
+    description: 'Mute any player in your server.',
 
-    async execute(client, message, args, Discord)
+    async execute(client, message, args, discord)
     {
         const member = message.mentions.users.first()
-        
-        if (message.member.permissions.has('KICK_MEMBERS'))
+        let role = message.guild.roles.cache.find(role => role.name === 'Muted');
+
+        if (message.member.permissions.has('ADMINISTRATOR'))
         {
             if (args.length >= 1)
             {
-                const reason = message.content.slice(prefix.length + 2).slice('kick'.length).slice(args[0].length)
+                const reason = message.content.slice(prefix.length + 2).slice('mute'.length).slice(args[0].length)
                 const targetedMember = message.guild.members.cache.get(member.id)
-                
-                if (!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot)
+
+                if ((!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot))
                 {
-                    targetedMember.kick({ reason: args[1] })
-                    message.channel.send(':hammer: Successfully kicked <@' + member + '>.')
-                    kickLog(client, member, message, reason)
+                    targetedMember.roles.add(role)
+                    muteLog(client, member, message, reason)
+                    message.channel.send(':hammer: Successfully muted <@' + member + '>.')
                 }
                 else //Member is Admin
-                    message.channel.send('**You cannot kick this member.**')
+                    message.channel.send('**You cannot mute this member.**')
             }
             else //No member specified
-                message.channel.send(':x: **Invalid usage. Use !kick <user> __<reason>__.**')  
+                message.channel.send(':x: **Invalid usage. Use !mute <user> __<reason>__.**')  
         }
     }
 }
 
-function kickLog(client, member, message, reason)  
+function muteLog(client, member, message, reason)  
 {
     const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
     const date = new Date()    
 
-    const kickAddLog = new MessageEmbed()
+    const muteAddLog = new MessageEmbed()
         .setColor('#FFFF00')
-        .setTitle('KICK - Case #')
+        .setTitle('MUTE - Case #')
         .setFields
         (
             { name: 'User', value: `${member.tag}\n${member}`, inline: true},
@@ -51,5 +52,5 @@ function kickLog(client, member, message, reason)
         .setThumbnail(config['Graphical-Settings']['Kick-Image'])
         .setFooter('Case created on ' + date.toUTCString())
        
-    client.channels.cache.get(loggingChannel['id']).send({ embeds: [kickAddLog] })   
+    client.channels.cache.get(loggingChannel['id']).send({ embeds: [muteAddLog] })   
 }

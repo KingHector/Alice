@@ -5,8 +5,8 @@ const prefix = config['Main-Settings']['Command-Prefix']
 
 module.exports = 
 {
-    name: "ban",
-    description: "Ban any player from your server.",
+    name: 'ban',
+    description: 'Ban any player from your server.',
 
     async execute(client, message, args, Discord)
     {
