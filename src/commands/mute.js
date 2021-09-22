@@ -20,7 +20,7 @@ module.exports =
                 const reason = message.content.slice(prefix.length + 2).slice('mute'.length).slice(args[0].length)
                 const targetedMember = message.guild.members.cache.get(member.id)
 
-                if ((!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot))
+                if ((!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot) && targetedMember.permissions.has('SEND_MESSAGES'))
                 {
                     targetedMember.roles.add(role)
                     muteLog(client, member, message, reason)
@@ -49,7 +49,7 @@ function muteLog(client, member, message, reason)
             { name: 'Moderator', value: `${message.author.tag}\n${message.author}`, inline: true},
             { name: 'Reason', value: '```' + `${reason} ` + '```'}
         )
-        .setThumbnail(config['Graphical-Settings']['Kick-Image'])
+        .setThumbnail(config['Graphical-Settings']['Mute-Icon'])
         .setFooter('Case created on ' + date.toUTCString())
        
     client.channels.cache.get(loggingChannel['id']).send({ embeds: [muteAddLog] })   

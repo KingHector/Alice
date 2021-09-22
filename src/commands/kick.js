@@ -48,7 +48,7 @@ function kickLog(client, member, message, reason)
             { name: 'Moderator', value: `${message.author.tag}\n${message.author}`, inline: true},
             { name: 'Reason', value: '```' + `${reason} ` + '```'}
         )
-        .setThumbnail(config['Graphical-Settings']['Kick-Image'])
+        .setThumbnail(config['Graphical-Settings']['Kick-Icon'])
         .setFooter('Case created on ' + date.toUTCString())
        
     client.channels.cache.get(loggingChannel['id']).send({ embeds: [kickAddLog] })   
