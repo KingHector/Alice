@@ -3,17 +3,18 @@ const config = require('../config.json')
 module.exports = (Discord, client, message) =>
 {
     console.log('Bot is Online!')
+    client.user.setActivity('Test', { type: 'WATCHING' })
 
     const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
 
     //Roles Creator
-    roleCheck(guild, 'Muted')
+    roleCreator(guild, 'Muted')
 
     //Channel Creator
-    channelCheck(guild, config['Channel-Settings']['Logging-Channel'])
+    channelCreator(guild, config['Channel-Settings']['Logging-Channel'])
 }
 
-function channelCheck (guild, name)
+function channelCreator(guild, name)
 {
     const loggingChannel = guild.channels.cache.find(channel => channel.name === name)
     
@@ -32,17 +33,18 @@ function channelCheck (guild, name)
     }
 }
 
-function roleCheck (guild, roleName)
+function roleCreator(guild, roleName)
 {
     const roleExists = guild.roles.cache.find(role => role.name === roleName)
     
     if (!roleExists)
     {
-        const muteRole = guild.roles.create(
-            {
+        const muteRole = guild.roles.create
+            ({
                 name: roleName,
                 color: 'DEFAULT',
                 permissions: ['VIEW_CHANNEL', 'CREATE_INSTANT_INVITE', 'CHANGE_NICKNAME', 'ADD_REACTIONS', 'READ_MESSAGE_HISTORY', 'CONNECT', 'SPEAK', 'USE_VAD']
             })    
     }
+
 }

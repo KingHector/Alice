@@ -20,11 +20,16 @@ module.exports =
                 const reason = message.content.slice(prefix.length + 2).slice('mute'.length).slice(args[0].length)
                 const targetedMember = message.guild.members.cache.get(member.id)
 
-                if ((!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot) && targetedMember.permissions.has('SEND_MESSAGES'))
+                if ((!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot))
                 {
-                    targetedMember.roles.add(role)
-                    muteLog(client, member, message, reason)
-                    message.channel.send(':hammer: Successfully muted <@' + member + '>.')
+                    if (!targetedMember.roles.cache.some(role => role.name === 'Muted'))
+                    {
+                        targetedMember.roles.add(role)
+                        message.channel.send(':mute: Successfully muted <@' + member + '>.')
+                        muteLog(client, member, message, reason)
+                    }
+                    else //Member is already Muted
+                      message.channel.send('**Member is already muted.**')
                 }
                 else //Member is Admin
                     message.channel.send('**You cannot mute this member.**')
@@ -41,7 +46,7 @@ function muteLog(client, member, message, reason)
     const date = new Date()    
 
     const muteAddLog = new MessageEmbed()
-        .setColor('#FFFF00')
+        .setColor('#ADD8E6')
         .setTitle('MUTE - Case #')
         .setFields
         (

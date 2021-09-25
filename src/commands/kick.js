@@ -40,7 +40,7 @@ function kickLog(client, member, message, reason)
     const date = new Date()    
 
     const kickAddLog = new MessageEmbed()
-        .setColor('#FFFF00')
+        .setColor('#FFA500')
         .setTitle('KICK - Case #')
         .setFields
         (
