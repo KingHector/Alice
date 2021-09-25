@@ -37,7 +37,7 @@ function unmuteLog(client, member, message)
     const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
     const date = new Date()    
 
-    const muteAddLog = new MessageEmbed()
+    const unmuteAddLog = new MessageEmbed()
         .setColor('#ADD8E6')
         .setTitle('UNMUTE - Case #')
         .setFields
@@ -48,5 +48,5 @@ function unmuteLog(client, member, message)
         .setThumbnail(config['Graphical-Settings']['Unmute-Icon'])
         .setFooter('Case created on ' + date.toUTCString())
        
-    client.channels.cache.get(loggingChannel['id']).send({ embeds: [muteAddLog] })   
+    client.channels.cache.get(loggingChannel['id']).send({ embeds: [unmuteAddLog] })   
 }

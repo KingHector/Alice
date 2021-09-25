@@ -3,7 +3,7 @@ const config = require('../config.json')
 module.exports = (Discord, client, message) =>
 {
     console.log('Bot is Online!')
-    client.user.setActivity('Test', { type: 'WATCHING' })
+    client.user.setActivity(config['Activity-Settings']['Activity-Message'], { type: config['Activity-Settings']['Activity-Type'] })
 
     const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
 

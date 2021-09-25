@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-const fs = require("fs")
+const fs = require('fs')
 const client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_BANS', 'GUILD_MEMBERS']})
 const config = require('./config.json')
 

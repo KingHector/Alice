@@ -11,6 +11,12 @@
         "Logging-Channel": "modlog"
     },
 
+    "Activity-Settings":
+    {
+        "Activity-Type": "PLAYING",
+        "Activity-Message": "!help"
+    },
+
     "Graphical-Settings":
     {
         "Ban-Icon": "https://i.imgur.com/wIoapVT.png",
