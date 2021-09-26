@@ -7,26 +7,29 @@ const prefix = config['Main-Settings']['Command-Prefix']
 module.exports = 
 {
     name: 'help',
-    description: 'Show a list of all commands and their descriptions.',
+    description: 'Show a list of all commands and their description.',
 
     async execute(client, message, args, Discord)
     {
         var commandsList = ''
+        var descriptionList = ''
 
         const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'))
 
         for (const file of commandFiles)
         {
             commandsList += prefix + file.replace('.js', '') + '\n'
+            descriptionList += client.commands.get(file.replace('.js', '')).description + '\n'
         }
 
         const helpEmbed = new MessageEmbed()
         .setColor('#cec4ff')
-        .setTitle('HELP')
+        .setTitle('Commands')
         .setFields
         (
             { name: 'Command', value: commandsList, inline: true},
-            { name: 'Description', value: 'desc', inline: true},
+            { name: '\u200B', value: '\u200B', inline: true  },
+            { name: 'Description', value: descriptionList, inline: true},
         )
         .setFooter('Developed by King_Hector for The Yawning Portal')
 

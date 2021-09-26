@@ -46,7 +46,7 @@ function unmuteLog(client, member, message)
             { name: 'Moderator', value: `${message.author.tag}\n${message.author}`, inline: true},
         )
         .setThumbnail(config['Graphical-Settings']['Unmute-Icon'])
-        .setFooter('Case created on ' + date.toUTCString())
+        .setFooter('Case updated on ' + date.toUTCString())
        
     client.channels.cache.get(loggingChannel['id']).send({ embeds: [unmuteAddLog] })   
 }
