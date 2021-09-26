@@ -6,7 +6,7 @@ const prefix = config['Main-Settings']['Command-Prefix']
 module.exports = 
 {
     name: 'mute',
-    description: 'Mute any player in your server.',
+    description: 'Mutes any player in your server.',
 
     async execute(client, message, args, discord)
     {
@@ -47,7 +47,7 @@ function muteLog(client, member, message, reason)
 
     const muteAddLog = new MessageEmbed()
         .setColor('#ADD8E6')
-        .setTitle('MUTE - Case #')
+        .setTitle('MUTE')
         .setFields
         (
             { name: 'User', value: `${member.tag}\n${member}`, inline: true},

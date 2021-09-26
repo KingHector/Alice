@@ -7,7 +7,7 @@ const prefix = config['Main-Settings']['Command-Prefix']
 module.exports = 
 {
     name: 'help',
-    description: 'Show a list of all commands and their description.',
+    description: 'Shows a list of all commands and their description.',
 
     async execute(client, message, args, Discord)
     {

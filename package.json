@@ -1,10 +1,11 @@
 {
-    "name": "theyawningportal",
+    "name": "typdiscordbot",
     "version": "1.0",
-    "description": "",
-    "main": "TheYawningPortal.js",
+    "description": "Discord Bot for The Yawning Portal's discord server. Moderates and interacts with IP Logging Minecraft Plugin.",
+    "main": "TypDiscordBot.js",
     "author": "King_Hector",
     "dependencies": {
-        "discord.js": "^13.1.0"
+        "discord.js": "^13.1.0",
+        "mysql": "^2.18.1"
     }
 }

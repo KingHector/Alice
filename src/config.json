@@ -17,6 +17,14 @@
         "Activity-Message": "!help"
     },
 
+    "MySQL-Database":
+    {
+        "Host": "localhost",
+        "User": "root",
+        "Password": "",
+        "Database": "testing database"
+    },
+
     "Graphical-Settings":
     {
         "Ban-Icon": "https://i.imgur.com/wIoapVT.png",

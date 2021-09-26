@@ -6,7 +6,7 @@ const prefix = config['Main-Settings']['Command-Prefix']
 module.exports = 
 {
     name: 'kick',
-    description: 'Kick any player from your server.',
+    description: 'Kicks any player from your server.',
 
     async execute(client, message, args, Discord)
     {
@@ -41,7 +41,7 @@ function kickLog(client, member, message, reason)
 
     const kickAddLog = new MessageEmbed()
         .setColor('#FFA500')
-        .setTitle('KICK - Case #')
+        .setTitle('KICK')
         .setFields
         (
             { name: 'User', value: `${member.tag}\n${member}`, inline: true},

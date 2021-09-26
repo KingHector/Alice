@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js')
 module.exports = 
 {
     name: 'unmute',
-    description: 'Unmute any muted player from your server.',
+    description: 'Unmutes any muted player from your server.',
 
     async execute(client, message, args, Discord)
     {
@@ -39,7 +39,7 @@ function unmuteLog(client, member, message)
 
     const unmuteAddLog = new MessageEmbed()
         .setColor('#ADD8E6')
-        .setTitle('UNMUTE - Case #')
+        .setTitle('UNMUTE')
         .setFields
         (
             { name: 'User', value: `${member.tag}\n${member}`, inline: true},

@@ -6,7 +6,7 @@ const prefix = config['Main-Settings']['Command-Prefix']
 module.exports = 
 {
     name: 'ban',
-    description: 'Ban any player from your server.',
+    description: 'Bans any player from your server.',
 
     async execute(client, message, args, Discord)
     {
@@ -41,7 +41,7 @@ function banLog(client, member, message, reason)
 
     const banAddLog = new MessageEmbed()
         .setColor('#FFFF00')
-        .setTitle('BAN - Case #')
+        .setTitle('BAN')
         .setFields
         (
             { name: 'User', value: `${member.tag}\n${member}`, inline: true},
