@@ -31,7 +31,7 @@ module.exports =
             { name: '\u200B', value: '\u200B', inline: true  },
             { name: 'Description', value: descriptionList, inline: true},
         )
-        .setFooter('Developed by King_Hector for The Yawning Portal')
+        .setFooter(`King_Hector's Moderation Bot`)
 
         message.channel.send({ embeds: [helpEmbed] })
     }

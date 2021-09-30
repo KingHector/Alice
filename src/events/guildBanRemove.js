@@ -14,7 +14,7 @@ function unbanLog(client, user)
 
     const unbanAddLog = new MessageEmbed()
         .setColor('#FFFF00')
-        .setTitle('UNBAN - Case #')
+        .setTitle(`UNBAN - Case #${user.id}`)
         .setFields
         (
             { name: 'User', value: `${user.tag}\n${user}`, inline: true},

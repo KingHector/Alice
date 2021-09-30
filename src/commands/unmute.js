@@ -39,7 +39,7 @@ function unmuteLog(client, member, message)
 
     const unmuteAddLog = new MessageEmbed()
         .setColor('#ADD8E6')
-        .setTitle('UNMUTE')
+        .setTitle(`UNMUTE - Case #${member.id}`)
         .setFields
         (
             { name: 'User', value: `${member.tag}\n${member}`, inline: true},

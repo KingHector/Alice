@@ -19,13 +19,18 @@ var connection = mysql.createConnection
     user: config['MySQL-Database']['User'],
     password: config['MySQL-Database']['Password'],
     database: config['MySQL-Database']['Database']
-})   
+})  
 
 connection.connect(error => 
     {
-        if (error) throw error;
+        if (!error) 
+        {
+            console.log('Connected to Database.')
 
-        console.log('Connected to Database.')
+            //connection.query('CREATE TABLE discordLogs (userID VARCHAR(255), address VARCHAR(255))', console.log)
+        }
+        else //No Database Connection
+            console.warn('Could not connect to Database. Logs will not be stored.')
     })
 
 client.login(config['Main-Settings']['Bot-Token'])

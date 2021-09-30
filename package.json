@@ -2,7 +2,7 @@
     "name": "typdiscordbot",
     "version": "1.0",
     "description": "Discord Bot for The Yawning Portal's discord server. Moderates and interacts with IP Logging Minecraft Plugin.",
-    "main": "TypDiscordBot.js",
+    "main": "typDiscordBot.js",
     "author": "King_Hector",
     "dependencies": {
         "discord.js": "^13.1.0",

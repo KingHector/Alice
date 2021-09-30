@@ -22,7 +22,7 @@
         "Host": "localhost",
         "User": "root",
         "Password": "",
-        "Database": "testing database"
+        "Database": "test"
     },
 
     "Graphical-Settings":

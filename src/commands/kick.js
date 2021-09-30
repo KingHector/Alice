@@ -41,7 +41,7 @@ function kickLog(client, member, message, reason)
 
     const kickAddLog = new MessageEmbed()
         .setColor('#FFA500')
-        .setTitle('KICK')
+        .setTitle(`KICK - Case #${member.id}`)
         .setFields
         (
             { name: 'User', value: `${member.tag}\n${member}`, inline: true},

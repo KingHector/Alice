@@ -41,7 +41,7 @@ function banLog(client, member, message, reason)
 
     const banAddLog = new MessageEmbed()
         .setColor('#FFFF00')
-        .setTitle('BAN')
+        .setTitle(`BAN - Case #${member.id}`)
         .setFields
         (
             { name: 'User', value: `${member.tag}\n${member}`, inline: true},

@@ -47,7 +47,7 @@ function muteLog(client, member, message, reason)
 
     const muteAddLog = new MessageEmbed()
         .setColor('#ADD8E6')
-        .setTitle('MUTE')
+        .setTitle(`MUTE - Case #${member.id}`)
         .setFields
         (
             { name: 'User', value: `${member.tag}\n${member}`, inline: true},
@@ -56,6 +56,7 @@ function muteLog(client, member, message, reason)
         )
         .setThumbnail(config['Graphical-Settings']['Mute-Icon'])
         .setFooter('Case created on ' + date.toUTCString())
-       
-    client.channels.cache.get(loggingChannel['id']).send({ embeds: [muteAddLog] })   
+     
+    console.log(muteAddLog)
+    //client.channels.cache.get(loggingChannel['id']).send({ embed: muteAddLog.toJSON.toString })   
 }

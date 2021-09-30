@@ -4,6 +4,7 @@ Discord Bot for The Yawning Portal's discord server. Moderates and interacts wit
 ## Commands
 
 - !help `Shows a list of all commands and their description.`
+- !ping `Show the latency in milliseconds.`
 - !ban `Bans any player from your server.`
 - !kick `Kicks any player from your server.`
 - !mute `Mutes any player in your server.`
