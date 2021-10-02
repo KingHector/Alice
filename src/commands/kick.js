@@ -12,7 +12,7 @@ module.exports =
     {
         const member = message.mentions.users.first()
         
-        if (message.member.permissions.has('KICK_MEMBERS'))
+        if (message.member.permissions.has('ADMINISTRATOR'))
         {
             if (args.length >= 1)
             {

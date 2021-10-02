@@ -27,6 +27,8 @@ connection.connect(error =>
         {
             console.log('Connected to Database.')
 
+            const createTable = 'CREATE TABLE customers (name VARCHAR(255), address VARCHAR(255))'
+
             //connection.query('CREATE TABLE discordLogs (userID VARCHAR(255), address VARCHAR(255))', console.log)
         }
         else //No Database Connection

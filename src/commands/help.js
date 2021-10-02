@@ -31,7 +31,6 @@ module.exports =
             { name: '\u200B', value: '\u200B', inline: true  },
             { name: 'Description', value: descriptionList, inline: true},
         )
-        .setFooter(`King_Hector's Moderation Bot`)
 
         message.channel.send({ embeds: [helpEmbed] })
     }
