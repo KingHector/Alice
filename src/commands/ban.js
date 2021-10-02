@@ -11,7 +11,8 @@ module.exports =
     async execute(client, message, args, Discord)
     {
         const member = message.mentions.users.first()
-        
+        const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
+
         if (message.member.permissions.has('ADMINISTRATOR'))
         {
             if (args.length >= 1)
@@ -21,6 +22,7 @@ module.exports =
                 
                 if (!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot)
                 {
+                    targetedMember.send(`:hammer: You have been banned from the ` + '`' + `${guild.name}` + '`' + ` server. Reason: ` + '`' + `${reason}` + '`')
                     targetedMember.ban({ reason: args[1] })
                     message.channel.send(':hammer: Successfully banned <@' + member + '>.')
                     banLog(client, member, message, reason)

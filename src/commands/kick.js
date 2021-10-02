@@ -11,6 +11,7 @@ module.exports =
     async execute(client, message, args, Discord)
     {
         const member = message.mentions.users.first()
+        const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
         
         if (message.member.permissions.has('ADMINISTRATOR'))
         {
@@ -21,8 +22,9 @@ module.exports =
                 
                 if (!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot)
                 {
+                    targetedMember.send(`:boot: You have been kicked from the ` + '`' + `${guild.name}` + '`' + ` server. Reason: ` + '`' + `${reason}` + '`')
                     targetedMember.kick({ reason: args[1] })
-                    message.channel.send(':hammer: Successfully kicked <@' + member + '>.')
+                    message.channel.send(':boot: Successfully kicked <@' + member + '>.')
                     kickLog(client, member, message, reason)
                 }
                 else //Member is Admin

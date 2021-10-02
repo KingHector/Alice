@@ -9,6 +9,7 @@ module.exports =
     async execute(client, message, args, Discord)
     {
         const member = message.mentions.users.first()
+        const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
         let role = message.guild.roles.cache.find(role => role.name === 'Muted');
 
         if (message.member.permissions.has('ADMINISTRATOR'))
@@ -19,6 +20,7 @@ module.exports =
 
                 if (targetedMember.roles.cache.some(role => role.name === 'Muted'))
                 {
+                    targetedMember.send(`:loud_sound: You have been unmuted on the ` + '`' + `${guild.name}` + '`' + ` server.`)
                     targetedMember.roles.remove(role)
                     message.channel.send(':loud_sound: Successfully unmuted <@' + member + '>.')
                     unmuteLog(client, member, message)
