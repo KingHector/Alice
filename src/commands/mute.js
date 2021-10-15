@@ -1,5 +1,6 @@
 const config = require('../config.json')
 const { MessageEmbed } = require('discord.js')
+const sql = require('../typDiscordBot').getsql
 
 const prefix = config['Main-Settings']['Command-Prefix']
 
@@ -12,8 +13,8 @@ module.exports =
     {
         const member = message.mentions.users.first()
         const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
-        let role = message.guild.roles.cache.find(role => role.name === 'Muted');
-
+        let role = message.guild.roles.cache.find(role => role.name === 'Muted')
+        
         if (message.member.permissions.has('ADMINISTRATOR'))
         {
             if (args.length >= 1)
@@ -25,7 +26,7 @@ module.exports =
                 {
                     if (!targetedMember.roles.cache.some(role => role.name === 'Muted'))
                     {
-                        targetedMember.send(`:mute: You have been muted on the ` + '`' + `${guild.name}` + '`' + ` server. Reason: ` + '`' + `${reason}` + '`')
+                        sendNotice(targetedMember)
                         targetedMember.roles.add(role)
                         message.channel.send(':mute: Successfully muted <@' + member + '>.')
                         muteLog(client, member, message, reason)
@@ -44,21 +45,36 @@ module.exports =
 
 function muteLog(client, member, message, reason)  
 {
-    const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
-    const date = new Date()    
+    sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['Table-Name']}`, function(err, rows, fields) 
+    {
+        const totalCases = rows['0'].cases
 
-    const muteAddLog = new MessageEmbed()
-        .setColor('#ADD8E6')
-        .setTitle(`MUTE - Case #${member.id}`)
-        .setFields
-        (
-            { name: 'User', value: `${member.tag}\n${member}`, inline: true},
-            { name: 'Moderator', value: `${message.author.tag}\n${message.author}`, inline: true},
-            { name: 'Reason', value: '```' + `${reason} ` + '```'}
-        )
-        .setThumbnail(config['Graphical-Settings']['Mute-Icon'])
-        .setFooter('Case created on ' + date.toUTCString())
+        //Embed
+        const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
+        const date = new Date()    
+
+        const muteAddLog = new MessageEmbed()
+            .setColor('#ADD8E6')
+            .setTitle(`MUTE - Case #${totalCases + 1}`)
+            .setFields
+            (
+                { name: 'User', value: `${member.tag}\n${member}`, inline: true},
+                { name: 'Moderator', value: `${message.author.tag}\n${message.author}`, inline: true},
+                { name: 'Reason', value: '```' + `${reason} ` + '```'}
+            )
+            .setThumbnail(config['Graphical-Settings']['Mute-Icon'])
+            .setFooter('Case created on ' + date.toUTCString())
      
-    console.log(muteAddLog)
-    //client.channels.cache.get(loggingChannel['id']).send({ embed: muteAddLog.toJSON.toString })   
+        client.channels.cache.get(loggingChannel['id']).send({ embeds: [muteAddLog] }) 
+        console.log(muteAddLog)
+        //SQL
+        if (sql.state === 'authenticated')
+            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${totalCases + 1}, 'MUTE', ${member.id}, '{"glossary": {"title": "example glossary"}}')`)
+    }); 
+}
+
+function sendNotice(targetedMember)
+{
+    if (!targetedMember.user.bot)
+        targetedMember.send(`:mute: You have been muted on the ` + '`' + `${guild.name}` + '`' + ` server. Reason: ` + '`' + `${reason}` + '`')
 }

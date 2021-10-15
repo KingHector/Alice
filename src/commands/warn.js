@@ -1,5 +1,6 @@
 const config = require('../config.json')
 const { MessageEmbed } = require('discord.js')
+const cases = require(`../typDiscordBot`).getTotalCases
 
 const prefix = config['Main-Settings']['Command-Prefix']
 
@@ -20,7 +21,7 @@ module.exports =
                 const reason = message.content.slice(prefix.length + 2).slice('warn'.length).slice(args[0].length)
                 const targetedMember = message.guild.members.cache.get(member.id)
                 
-                targetedMember.send(`:warning: You have received a warning on the ` + '`' + `${guild.name}` + '`' + ` server. Reason: ` + '`' + `${reason}` + '`')
+                sendNotice(targetedMember)
                 message.channel.send(':warning: Successfully warned <@' + member + '>.')
                 warnLog(client, member, message, reason)    
             }
@@ -37,7 +38,7 @@ function warnLog(client, member, message, reason)
 
     const warnAddLog = new MessageEmbed()
         .setColor('#00FF00')
-        .setTitle(`WARN - Case #${member.id}`)
+        .setTitle(`WARN - Case #${cases + 1}`)
         .setFields
         (
             { name: 'User', value: `${member.tag}\n${member}`, inline: true},
@@ -48,4 +49,10 @@ function warnLog(client, member, message, reason)
         .setFooter('Case created on ' + date.toUTCString())
        
     client.channels.cache.get(loggingChannel['id']).send({ embeds: [warnAddLog] })   
+}
+
+function sendNotice(targetedMember)
+{
+    if (!targetedMember.user.bot)
+        targetedMember.send(`:warning: You have received a warning on the ` + '`' + `${guild.name}` + '`' + ` server. Reason: ` + '`' + `${reason}` + '`')
 }

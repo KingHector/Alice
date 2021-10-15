@@ -1,5 +1,6 @@
 const config = require('../config.json')
 const { MessageEmbed } = require('discord.js')
+const cases = require(`../typDiscordBot`).getTotalCases
 
 module.exports = 
 {
@@ -20,7 +21,7 @@ module.exports =
 
                 if (targetedMember.roles.cache.some(role => role.name === 'Muted'))
                 {
-                    targetedMember.send(`:loud_sound: You have been unmuted on the ` + '`' + `${guild.name}` + '`' + ` server.`)
+                    sendNotice(targetedMember)
                     targetedMember.roles.remove(role)
                     message.channel.send(':loud_sound: Successfully unmuted <@' + member + '>.')
                     unmuteLog(client, member, message)
@@ -41,7 +42,7 @@ function unmuteLog(client, member, message)
 
     const unmuteAddLog = new MessageEmbed()
         .setColor('#ADD8E6')
-        .setTitle(`UNMUTE - Case #${member.id}`)
+        .setTitle(`UNMUTE - Case #${cases + 1}`)
         .setFields
         (
             { name: 'User', value: `${member.tag}\n${member}`, inline: true},
@@ -51,4 +52,10 @@ function unmuteLog(client, member, message)
         .setFooter('Case updated on ' + date.toUTCString())
        
     client.channels.cache.get(loggingChannel['id']).send({ embeds: [unmuteAddLog] })   
+}
+
+function sendNotice(targetedMember)
+{
+    if (!targetedMember.user.bot)
+        targetedMember.send(`:loud_sound: You have been unmuted on the ` + '`' + `${guild.name}` + '`' + ` server.`)
 }

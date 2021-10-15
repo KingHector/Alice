@@ -17,12 +17,13 @@
         "Activity-Message": "!help"
     },
 
-    "MySQL-Database":
+    "Database":
     {
         "Host": "localhost",
         "User": "root",
         "Password": "",
-        "Database": "test"
+        "Database": "test",
+        "Table-Name": "discordlogs"
     },
 
     "Graphical-Settings":

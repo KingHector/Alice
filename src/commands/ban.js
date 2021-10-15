@@ -1,5 +1,6 @@
 const config = require('../config.json')
 const { MessageEmbed } = require('discord.js')
+const cases = require(`../typDiscordBot`).getTotalCases
 
 const prefix = config['Main-Settings']['Command-Prefix']
 
@@ -22,7 +23,7 @@ module.exports =
                 
                 if (!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot)
                 {
-                    targetedMember.send(`:hammer: You have been banned from the ` + '`' + `${guild.name}` + '`' + ` server. Reason: ` + '`' + `${reason}` + '`')
+                    sendNotice(targetedMember)
                     targetedMember.ban({ reason: args[1] })
                     message.channel.send(':hammer: Successfully banned <@' + member + '>.')
                     banLog(client, member, message, reason)
@@ -43,7 +44,7 @@ function banLog(client, member, message, reason)
 
     const banAddLog = new MessageEmbed()
         .setColor('#FFFF00')
-        .setTitle(`BAN - Case #${member.id}`)
+        .setTitle(`BAN - Case #${cases + 1}`)
         .setFields
         (
             { name: 'User', value: `${member.tag}\n${member}`, inline: true},
@@ -54,4 +55,10 @@ function banLog(client, member, message, reason)
         .setFooter('Case created on ' + date.toUTCString())
        
     client.channels.cache.get(loggingChannel['id']).send({ embeds: [banAddLog] })   
+}
+
+function sendNotice(targetedMember)
+{
+    if (!targetedMember.user.bot)
+        targetedMember.send(`:hammer: You have been banned from the ` + '`' + `${guild.name}` + '`' + ` server. Reason: ` + '`' + `${reason}` + '`')
 }
