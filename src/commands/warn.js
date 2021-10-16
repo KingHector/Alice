@@ -1,5 +1,6 @@
 const config = require('../config.json')
 const { MessageEmbed } = require('discord.js')
+const sql = require('../typDiscordBot').getsql
 
 const prefix = config['Main-Settings']['Command-Prefix']
 
@@ -32,23 +33,34 @@ module.exports =
 
 function warnLog(client, member, message, reason)  
 {
-    const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
-    const date = new Date()    
+    sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['Table-Name']}`, function(err, rows, fields) 
+    {
+        var currentCase = undefined
+        sql.state === 'authenticated' ? currentCase = rows['0'].cases + 1 : undefined
 
-    const warnAddLog = new MessageEmbed()
-        .setColor('#00FF00')
-        .setTitle(`WARN - Case #${cases + 1}`)
-        .setFields
-        (
-            { name: 'User', value: `${member.tag}\n${member}`, inline: true},
-            { name: 'Moderator', value: `${message.author.tag}\n${message.author}`, inline: true},
-            { name: 'Reason', value: '```' + `${reason} ` + '```'}
-        )
-        .setThumbnail(config['Graphical-Settings']['Warning-Icon'])
-        .setFooter('Case created on ' + date.toUTCString())
-       
-    client.channels.cache.get(loggingChannel['id']).send({ embeds: [warnAddLog] })   
-}
+        //Embed
+        const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
+        const date = new Date()    
+
+        const warnAddLog = new MessageEmbed()
+            .setColor('#00FF00')
+            .setTitle(`WARN - Case #${currentCase}`)
+            .setFields
+            (
+                { name: 'User', value: `${member}`, inline: true},
+                { name: 'Moderator', value: `${message.author}`, inline: true},
+                { name: 'Reason', value: '```' + `${reason} ` + '```'}
+            )
+            .setThumbnail(config['Graphical-Settings']['Warning-Icon'])
+            .setFooter('Case created on ' + date.toUTCString())
+            
+        client.channels.cache.get(loggingChannel['id']).send({ embeds: [warnAddLog] })   
+
+        //SQL
+        if (sql.state === 'authenticated')
+            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'WARN', ${member.id}, '${JSON.stringify(warnAddLog)}')`)
+    });   
+}   
 
 function sendNotice(targetedMember)
 {

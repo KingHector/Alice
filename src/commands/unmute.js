@@ -1,5 +1,6 @@
 const config = require('../config.json')
 const { MessageEmbed } = require('discord.js')
+const sql = require('../typDiscordBot').getsql
 
 module.exports = 
 {
@@ -36,22 +37,33 @@ module.exports =
 
 function unmuteLog(client, member, message)  
 {
-    const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
-    const date = new Date()    
+    sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['Table-Name']}`, function(err, rows, fields) 
+    {
+        var currentCase = undefined
+        sql.state === 'authenticated' ? currentCase = rows['0'].cases + 1 : undefined
 
-    const unmuteAddLog = new MessageEmbed()
-        .setColor('#ADD8E6')
-        .setTitle(`UNMUTE - Case #${cases + 1}`)
-        .setFields
-        (
-            { name: 'User', value: `${member.tag}\n${member}`, inline: true},
-            { name: 'Moderator', value: `${message.author.tag}\n${message.author}`, inline: true},
-        )
-        .setThumbnail(config['Graphical-Settings']['Unmute-Icon'])
-        .setFooter('Case updated on ' + date.toUTCString())
-       
-    client.channels.cache.get(loggingChannel['id']).send({ embeds: [unmuteAddLog] })   
-}
+        //Embed
+        const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
+        const date = new Date()    
+
+        const unmuteAddLog = new MessageEmbed()
+            .setColor('#ADD8E6')
+            .setTitle(`UNMUTE - Case #${currentCase}`)
+            .setFields
+            (
+                { name: 'User', value: `${member}`, inline: true},
+                { name: 'Moderator', value: `${message.author}`, inline: true},
+            )
+            .setThumbnail(config['Graphical-Settings']['Unmute-Icon'])
+            .setFooter('Case updated on ' + date.toUTCString())
+            
+        client.channels.cache.get(loggingChannel['id']).send({ embeds: [unmuteAddLog] }) 
+        
+        //SQL
+        if (sql.state === 'authenticated')
+            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'UNMUTE', ${member.id}, '${JSON.stringify(unmuteAddLog)}')`)
+    });   
+}   
 
 function sendNotice(targetedMember)
 {

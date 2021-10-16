@@ -59,18 +59,18 @@ function muteLog(client, member, message, reason)
             .setTitle(`MUTE - Case #${currentCase}`)
             .setFields
             (
-                { name: 'User', value: `${member.tag}\n${member}`, inline: true},
-                { name: 'Moderator', value: `${message.author.tag}\n${message.author}`, inline: true},
+                { name: 'User', value: `${member}`, inline: true},
+                { name: 'Moderator', value: `${message.author}`, inline: true},
                 { name: 'Reason', value: '```' + `${reason} ` + '```'}
             )
             .setThumbnail(config['Graphical-Settings']['Mute-Icon'])
             .setFooter('Case created on ' + date.toUTCString())
      
         client.channels.cache.get(loggingChannel['id']).send({ embeds: [muteAddLog] }) 
-
+        
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'MUTE', ${member.id}, ${muteAddLog})`)
+            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'MUTE', ${member.id}, '${JSON.stringify(muteAddLog)}')`)
     }); 
 }
 
