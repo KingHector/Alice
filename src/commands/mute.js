@@ -47,7 +47,8 @@ function muteLog(client, member, message, reason)
 {
     sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['Table-Name']}`, function(err, rows, fields) 
     {
-        const totalCases = rows['0'].cases
+        var currentCase = undefined
+        sql.state === 'authenticated' ? currentCase = rows['0'].cases + 1 : undefined
 
         //Embed
         const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
@@ -55,7 +56,7 @@ function muteLog(client, member, message, reason)
 
         const muteAddLog = new MessageEmbed()
             .setColor('#ADD8E6')
-            .setTitle(`MUTE - Case #${totalCases + 1}`)
+            .setTitle(`MUTE - Case #${currentCase}`)
             .setFields
             (
                 { name: 'User', value: `${member.tag}\n${member}`, inline: true},
@@ -69,7 +70,7 @@ function muteLog(client, member, message, reason)
         console.log(muteAddLog)
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${totalCases + 1}, 'MUTE', ${member.id}, '{"glossary": {"title": "example glossary"}}')`)
+            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'MUTE', ${member.id}, '{"glossary": {"title": "example glossary"}}')`)
     }); 
 }
 

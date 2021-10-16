@@ -1,6 +1,5 @@
 const config = require('../config.json')
 const { MessageEmbed } = require('discord.js')
-const cases = require(`../typDiscordBot`).getTotalCases
 
 const prefix = config['Main-Settings']['Command-Prefix']
 
