@@ -67,10 +67,10 @@ function muteLog(client, member, message, reason)
             .setFooter('Case created on ' + date.toUTCString())
      
         client.channels.cache.get(loggingChannel['id']).send({ embeds: [muteAddLog] }) 
-        console.log(muteAddLog)
+
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'MUTE', ${member.id}, '{"glossary": {"title": "example glossary"}}')`)
+            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'MUTE', ${member.id}, ${muteAddLog})`)
     }); 
 }
 

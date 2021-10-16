@@ -24,7 +24,7 @@ sql.connect(error =>
             console.warn('Could not connect to Database. Logs will not be stored.')
     })
 
-module.exports = { getsql: sql}
+module.exports = { getsql: sql}            
 
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
