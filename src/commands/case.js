@@ -4,7 +4,7 @@ const sql = require('../typDiscordBot').getsql
 module.exports = 
 {
     name: 'case',
-    description: 'Shows a punishment case specified.',
+    description: 'Shows the punishment case specified.',
 
     async execute(client, message, args, Discord)
     {

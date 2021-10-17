@@ -11,6 +11,7 @@ Discord Bot for The Yawning Portal's discord server. Moderates and interacts wit
 - !unmute &lt;user&gt; `Unmutes any muted user from your server.`
 - !warn &lt;user&gt; &lt;reason&gt; `Warns any user in your server.`
 - !inquire &lt;user&gt; `Shows all the punishments a user has received.`
+- !case &lt;caseNumber&gt; `Shows the punishment case specified.`
 
 ## How To Use
 
