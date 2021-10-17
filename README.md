@@ -25,3 +25,27 @@ Now your bot is ready to be invited to your server. Head over to [this](https://
 
 ### Config Setup
 
+Your bot config should look like this:
+
+`{
+    "Main-Settings":
+    {
+        "Bot-Token": "ODc3OTUxMTcxMDU3MzAzNTgz.YR6Fvg.qeHHDzpDEMvd2zosS5QHVmgFXts",
+        "Server-ID": "883770811083796500",
+        "Command-Prefix": "!",
+
+        "Logging-Channel": "modlog",
+
+        "Activity-Type": "PLAYING",
+        "Activity-Message": "!help"
+    },
+
+    "Database":
+    {
+        "Host": "localhost",
+        "User": "root",
+        "Password": "",
+        "Database": "test",
+        "Table-Name": "discordlogs"
+    }
+}`
