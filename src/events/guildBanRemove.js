@@ -1,14 +1,14 @@
 const config = require('../config.json');
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed, GuildBan } = require('discord.js')
 const sql = require('../typDiscordBot').getsql
 
-module.exports = (Discord, client, user) =>
+module.exports = (Discord, client, ban) =>
 {
-    unbanLog(client, user.user)
-    console.log(user.user)
+    unbanLog(client, ban)
+    console.log(ban.client.user)
 }
 
-function unbanLog(client, user)  
+function unbanLog(client, ban)  
 {
     sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['Table-Name']}`, function(err, rows, fields) 
     {
@@ -24,8 +24,8 @@ function unbanLog(client, user)
             .setTitle(`UNBAN - Case #${currentCase}`)
             .setFields
             (
-                { name: 'User', value: `${user}`, inline: true},
-                { name: 'Moderator', value: `mod`, inline: true},
+                { name: 'User', value: `${ban.user}`, inline: true},
+                { name: 'Moderator', value: `${ban.client.user}`, inline: true},
             )
             .setThumbnail(config['Graphical-Settings']['Unban-Icon'])
             .setFooter('Case updated on ' + date.toUTCString())
@@ -34,6 +34,6 @@ function unbanLog(client, user)
         
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'UNBAN', ${user.id}, '${JSON.stringify(unbanAddLog)}')`)
+            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'UNBAN', ${ban.user.id}, '${JSON.stringify(unbanAddLog)}')`)
     });   
 }

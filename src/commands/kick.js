@@ -46,7 +46,8 @@ function kickLog(client, member, message, reason)
 
         //Embed
         const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
-        const date = new Date()    
+        const date = new Date() 
+        const isoDate = date.toISOString().split('T')[0]    
         
         const kickAddLog = new MessageEmbed()
             .setColor('#FFA500')
@@ -64,7 +65,7 @@ function kickLog(client, member, message, reason)
 
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'KICK', ${member.id}, '${JSON.stringify(kickAddLog)}')`)
+            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'KICK', ${member.id}, '${JSON.stringify(kickAddLog)}', '${isoDate}')`)
     });   
 }
 

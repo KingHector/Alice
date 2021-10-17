@@ -44,7 +44,8 @@ function unmuteLog(client, member, message)
 
         //Embed
         const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
-        const date = new Date()    
+        const date = new Date()  
+        const isoDate = date.toISOString().split('T')[0]   
 
         const unmuteAddLog = new MessageEmbed()
             .setColor('#ADD8E6')
@@ -61,7 +62,7 @@ function unmuteLog(client, member, message)
         
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'UNMUTE', ${member.id}, '${JSON.stringify(unmuteAddLog)}')`)
+            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'UNMUTE', ${member.id}, '${JSON.stringify(unmuteAddLog)}', '${isoDate}')`)
     });   
 }   
 

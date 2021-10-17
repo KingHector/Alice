@@ -47,6 +47,7 @@ function banLog(client, member, message, reason)
         //Embed
         const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
         const date = new Date()    
+        const isoDate = date.toISOString().split('T')[0] 
 
         const banAddLog = new MessageEmbed()
             .setColor('#FFFF00')
@@ -64,7 +65,7 @@ function banLog(client, member, message, reason)
             
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'BAN', ${member.id}, '${JSON.stringify(banAddLog)}')`)
+            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'BAN', ${member.id}, '${JSON.stringify(banAddLog)}, '${isoDate}')`)
     });     
 }
 

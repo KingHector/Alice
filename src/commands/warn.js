@@ -41,6 +41,7 @@ function warnLog(client, member, message, reason)
         //Embed
         const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
         const date = new Date()    
+        const isoDate = date.toISOString().split('T')[0] 
 
         const warnAddLog = new MessageEmbed()
             .setColor('#00FF00')
@@ -58,7 +59,7 @@ function warnLog(client, member, message, reason)
 
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'WARN', ${member.id}, '${JSON.stringify(warnAddLog)}')`)
+            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'WARN', ${member.id}, '${JSON.stringify(warnAddLog)}', '${isoDate}')`)
     });   
 }   
 
