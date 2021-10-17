@@ -25,7 +25,7 @@ Now your bot is ready to be invited to your server. Head over to [this](https://
 
 ### Config Setup
 
-`{
+```{
     "Main-Settings":
     {
         "Bot-Token": "ODc3OTUxMTcxMDU3MzAzNTgz.YR6Fvg.qeHHDzpDEMvd2zosS5QHVmgFXts",
@@ -46,4 +46,4 @@ Now your bot is ready to be invited to your server. Head over to [this](https://
         "Database": "test",
         "Table-Name": "discordlogs"
     }
-}`
+}```
