@@ -3,7 +3,7 @@ const config = require('../config.json')
 module.exports = (Discord, client, message) =>
 {
     console.log('Bot Online.')
-    client.user.setActivity(config['Activity-Settings']['Activity-Message'], { type: config['Activity-Settings']['Activity-Type'] })
+    client.user.setActivity(config['Main-Settings']['Activity-Message'], { type: config['Main-Settings']['Activity-Type'] })
 
     const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
 
@@ -11,7 +11,7 @@ module.exports = (Discord, client, message) =>
     roleCreator(guild, 'Muted')
 
     //Channel Creator
-    channelCreator(guild, config['Channel-Settings']['Logging-Channel'])
+    channelCreator(guild, config['Main-Settings']['Logging-Channel'])
 }
 
 function channelCreator(guild, name)

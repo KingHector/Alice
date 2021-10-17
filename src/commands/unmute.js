@@ -42,7 +42,7 @@ function unmuteLog(client, member, message)
         sql.state === 'authenticated' ? currentCase = rows['0'].cases + 1 : undefined
 
         //Embed
-        const loggingChannel = client.channels.cache.find(channel => channel.name === config['Channel-Settings']['Logging-Channel'])
+        const loggingChannel = client.channels.cache.find(channel => channel.name === config['Main-Settings']['Logging-Channel'])
         const date = new Date()  
         const isoDate = date.toISOString().split('T')[0]   
 

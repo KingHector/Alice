@@ -3,16 +3,10 @@
     {
         "Bot-Token": "ODc3OTUxMTcxMDU3MzAzNTgz.YR6Fvg.qeHHDzpDEMvd2zosS5QHVmgFXts",
         "Server-ID": "883770811083796500",
-        "Command-Prefix": "!"
-    },
+        "Command-Prefix": "!",
 
-    "Channel-Settings":
-    {
-        "Logging-Channel": "modlog"
-    },
+        "Logging-Channel": "modlog",
 
-    "Activity-Settings":
-    {
         "Activity-Type": "PLAYING",
         "Activity-Message": "!help"
     },
