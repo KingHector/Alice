@@ -25,13 +25,13 @@ Now your bot is ready to be invited to your server. Head over to [this](https://
 
 ### Config Setup
 
-Your bot config should look like this:
+Your bot config should look like this. If it's missing any lines be sure to add them.
 
 ```
 {
     "Main-Settings":
     {
-        "Bot-Token": "ODc3OTUxMTcxMDU3MzAzNTgz.YR6Fvg.qeHHDzpDEMvd2zosS5QHVmgFXts",
+        "Bot-Token": "ODc3OTUxMTcxMDU3MzAzNTgz.YR6Fvg.qeHHDzpDEMvd2zosS5QHVmgFXts", 
         "Server-ID": "883770811083796500",
         "Command-Prefix": "!",
 
