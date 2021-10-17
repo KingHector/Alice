@@ -27,7 +27,8 @@ Now your bot is ready to be invited to your server. Head over to [this](https://
 
 Your bot config should look like this:
 
-```{
+```
+{
     "Main-Settings":
     {
         "Bot-Token": "ODc3OTUxMTcxMDU3MzAzNTgz.YR6Fvg.qeHHDzpDEMvd2zosS5QHVmgFXts",
@@ -49,3 +50,4 @@ Your bot config should look like this:
         "Table-Name": "discordlogs"
     }
 }
+```
