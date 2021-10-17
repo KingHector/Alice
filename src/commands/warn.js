@@ -12,7 +12,6 @@ module.exports =
     async execute(client, message, args, discord)
     {
         const member = message.mentions.users.first()
-        const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
         
         if (message.member.permissions.has('ADMINISTRATOR'))
         {
@@ -21,7 +20,7 @@ module.exports =
                 const reason = message.content.slice(prefix.length + 2).slice('warn'.length).slice(args[0].length)
                 const targetedMember = message.guild.members.cache.get(member.id)
                 
-                sendNotice(targetedMember)
+                sendNotice(targetedMember, client)
                 message.channel.send(':warning: Successfully warned <@' + member + '>.')
                 warnLog(client, member, message, reason)    
             }
@@ -63,8 +62,10 @@ function warnLog(client, member, message, reason)
     });   
 }   
 
-function sendNotice(targetedMember)
+function sendNotice(targetedMember, client)
 {
+    const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
+
     if (!targetedMember.user.bot)
         targetedMember.send(`:warning: You have received a warning on the ` + '`' + `${guild.name}` + '`' + ` server. Reason: ` + '`' + `${reason}` + '`')
 }

@@ -12,7 +12,6 @@ module.exports =
     async execute(client, message, args, discord)
     {
         const member = message.mentions.users.first()
-        const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
         let role = message.guild.roles.cache.find(role => role.name === 'Muted')
         
         if (message.member.permissions.has('ADMINISTRATOR'))
@@ -26,7 +25,7 @@ module.exports =
                 {
                     if (!targetedMember.roles.cache.some(role => role.name === 'Muted'))
                     {
-                        sendNotice(targetedMember)
+                        sendNotice(targetedMember, client)
                         targetedMember.roles.add(role)
                         message.channel.send(':mute: Successfully muted <@' + member + '>.')
                         muteLog(client, member, message, reason)
@@ -75,8 +74,10 @@ function muteLog(client, member, message, reason)
     }); 
 } 
 
-function sendNotice(targetedMember)
+function sendNotice(targetedMember, client)
 {
+    const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
+
     if (!targetedMember.user.bot)
         targetedMember.send(`:mute: You have been muted on the ` + '`' + `${guild.name}` + '`' + ` server. Reason: ` + '`' + `${reason}` + '`')
 }
