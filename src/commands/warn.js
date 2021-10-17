@@ -7,7 +7,7 @@ const prefix = config['Main-Settings']['Command-Prefix']
 module.exports = 
 {
     name: 'warn',
-    description: 'Warns any player in your server.',
+    description: 'Warns any user in your server.',
 
     async execute(client, message, args, discord)
     {
@@ -20,7 +20,7 @@ module.exports =
                 const reason = message.content.slice(prefix.length + 2).slice('warn'.length).slice(args[0].length)
                 const targetedMember = message.guild.members.cache.get(member.id)
                 
-                sendNotice(targetedMember, client)
+                sendNotice(targetedMember, client, reason)
                 message.channel.send(':warning: Successfully warned <@' + member + '>.')
                 warnLog(client, member, message, reason)    
             }
@@ -59,10 +59,10 @@ function warnLog(client, member, message, reason)
         //SQL
         if (sql.state === 'authenticated')
             sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'WARN', ${member.id}, '${JSON.stringify(warnAddLog)}', '${isoDate}')`)
-    });   
+    })
 }   
 
-function sendNotice(targetedMember, client)
+function sendNotice(targetedMember, client, reason)
 {
     const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
 

@@ -7,7 +7,7 @@ const prefix = config['Main-Settings']['Command-Prefix']
 module.exports = 
 {
     name: 'mute',
-    description: 'Mutes any player in your server.',
+    description: 'Mutes any user in your server.',
 
     async execute(client, message, args, discord)
     {
@@ -25,7 +25,7 @@ module.exports =
                 {
                     if (!targetedMember.roles.cache.some(role => role.name === 'Muted'))
                     {
-                        sendNotice(targetedMember, client)
+                        sendNotice(targetedMember, client, reason)
                         targetedMember.roles.add(role)
                         message.channel.send(':mute: Successfully muted <@' + member + '>.')
                         muteLog(client, member, message, reason)
@@ -71,10 +71,10 @@ function muteLog(client, member, message, reason)
         //SQL
         if (sql.state === 'authenticated')
             sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'MUTE', ${member.id}, '${JSON.stringify(muteAddLog)}', '${isoDate}')`)
-    }); 
+    })
 } 
 
-function sendNotice(targetedMember, client)
+function sendNotice(targetedMember, client, reason)
 {
     const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
 

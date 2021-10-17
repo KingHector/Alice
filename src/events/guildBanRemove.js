@@ -1,4 +1,4 @@
-const config = require('../config.json');
+const config = require('../config.json')
 const { MessageEmbed, GuildBan } = require('discord.js')
 const sql = require('../typDiscordBot').getsql
 
@@ -35,5 +35,5 @@ function unbanLog(client, ban)
         //SQL
         if (sql.state === 'authenticated')
             sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'UNBAN', ${ban.user.id}, '${JSON.stringify(unbanAddLog)}')`)
-    });   
+    })
 }

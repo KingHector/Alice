@@ -26,8 +26,8 @@ sql.connect(error =>
 
 module.exports = { getsql: sql}            
 
-client.commands = new Discord.Collection();
-client.events = new Discord.Collection();
+client.commands = new Discord.Collection()
+client.events = new Discord.Collection()
 
 ['commandHandler', 'eventHandler'].forEach(handler => 
     {

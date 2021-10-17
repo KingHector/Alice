@@ -5,11 +5,12 @@ Discord Bot for The Yawning Portal's discord server. Moderates and interacts wit
 
 - !help `Shows a list of all commands and their description.`
 - !ping `Show the latency in milliseconds.`
-- !ban &lt;user&gt; &lt;reason&gt; `Bans any player from your server. Reason is optional.`
-- !kick &lt;user&gt; &lt;reason&gt; `Kicks any player from your server. Reason is optional.`
-- !mute &lt;user&gt; &lt;reason&gt; `Mutes any player in your server. Reason is optional.`
-- !unmute &lt;user&gt; `Unmutes any muted player from your server.`
-- !warn &lt;user&gt; &lt;reason&gt; `Warns any player in your server.`
+- !ban &lt;user&gt; &lt;reason&gt; `Bans any user from your server. Reason is optional.`
+- !kick &lt;user&gt; &lt;reason&gt; `Kicks any user from your server. Reason is optional.`
+- !mute &lt;user&gt; &lt;reason&gt; `Mutes any user in your server. Reason is optional.`
+- !unmute &lt;user&gt; `Unmutes any muted user from your server.`
+- !warn &lt;user&gt; &lt;reason&gt; `Warns any user in your server.`
+- !inquire &lt;user&gt; `Shows all the punishments a user has received.`
 
 ## How To Use
 

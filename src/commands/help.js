@@ -24,14 +24,14 @@ module.exports =
         }
 
         const helpEmbed = new MessageEmbed()
-        .setColor('#cec4ff')
-        .setTitle('Commands')
-        .setFields
-        (
-            { name: 'Command', value: commandsList, inline: true},
-            { name: '\u200B', value: '\u200B', inline: true  },
-            { name: 'Description', value: descriptionList, inline: true},
-        )
+            .setColor('#cec4ff')
+            .setTitle('Commands')
+            .setFields
+            (
+                { name: 'Command', value: commandsList, inline: true},
+                { name: '\u200B', value: '\u200B', inline: true  },
+                { name: 'Description', value: descriptionList, inline: true},
+            )
 
         message.channel.send({ embeds: [helpEmbed] })
     }

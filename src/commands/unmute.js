@@ -5,12 +5,12 @@ const sql = require('../typDiscordBot').getsql
 module.exports = 
 {
     name: 'unmute',
-    description: 'Unmutes any muted player from your server.',
+    description: 'Unmutes any muted user from your server.',
 
     async execute(client, message, args, Discord)
     {
         const member = message.mentions.users.first()
-        let role = message.guild.roles.cache.find(role => role.name === 'Muted');
+        let role = message.guild.roles.cache.find(role => role.name === 'Muted')
 
         if (message.member.permissions.has('ADMINISTRATOR'))
         {
@@ -62,7 +62,7 @@ function unmuteLog(client, member, message)
         //SQL
         if (sql.state === 'authenticated')
             sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'UNMUTE', ${member.id}, '${JSON.stringify(unmuteAddLog)}', '${isoDate}')`)
-    });   
+    })
 }   
 
 function sendNotice(targetedMember, client)

@@ -7,7 +7,7 @@ const prefix = config['Main-Settings']['Command-Prefix']
 module.exports = 
 {
     name: 'kick',
-    description: 'Kicks any player from your server.',
+    description: 'Kicks any user from your server.',
 
     async execute(client, message, args, Discord)
     {
@@ -22,7 +22,7 @@ module.exports =
                 
                 if (!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot)
                 {
-                    sendNotice(targetedMember, client)
+                    sendNotice(targetedMember, client, reason)
                     targetedMember.kick({ reason: args[1] })
                     message.channel.send(':boot: Successfully kicked <@' + member + '>.')
                     kickLog(client, member, message, reason)
@@ -65,10 +65,10 @@ function kickLog(client, member, message, reason)
         //SQL
         if (sql.state === 'authenticated')
             sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'KICK', ${member.id}, '${JSON.stringify(kickAddLog)}', '${isoDate}')`)
-    });   
+    })
 }
 
-function sendNotice(targetedMember, client)
+function sendNotice(targetedMember, client, reason)
 {
     const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
 
