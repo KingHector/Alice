@@ -46,4 +46,4 @@ Now your bot is ready to be invited to your server. Head over to [this](https://
         "Database": "test",
         "Table-Name": "discordlogs"
     }
-}```
+}
