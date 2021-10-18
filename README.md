@@ -25,7 +25,7 @@ Now your bot is ready to be invited to your server. Head over to [this](https://
 
 ### Config Setup
 
-Your bot config should look like this. If it's missing any lines be sure to add them.
+Your bot config should look like this. Every single option is tweakable to your needs. If it's missing any lines be sure to add them.
 
 ```
 {
