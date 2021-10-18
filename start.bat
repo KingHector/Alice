@@ -1,4 +1,4 @@
 echo off
 cls
-node src/typDiscordBot.js
+node src/alice.js
 pause

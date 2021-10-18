@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-const sql = require('../typDiscordBot').getsql
+const sql = require('../alice').getsql
 
 module.exports = 
 {

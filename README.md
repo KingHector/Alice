@@ -1,5 +1,5 @@
-# TYPDiscordBot
-Discord Bot for The Yawning Portal's discord server. Moderates and interacts with IP Logging Minecraft Plugin.
+# Alice
+Moderation Discord Bot made for self hosting it. Works on it's own or with plugins.
 
 ## Commands
 

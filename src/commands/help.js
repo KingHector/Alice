@@ -32,6 +32,7 @@ module.exports =
                 { name: '\u200B', value: '\u200B', inline: true  },
                 { name: 'Description', value: descriptionList, inline: true},
             )
+            .setFooter(`ID: ${client.id} | Project Alice`)
 
         message.channel.send({ embeds: [helpEmbed] })
     }

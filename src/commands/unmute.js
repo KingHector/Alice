@@ -1,6 +1,6 @@
 const config = require('../config.json')
 const { MessageEmbed } = require('discord.js')
-const sql = require('../typDiscordBot').getsql
+const sql = require('../alice').getsql
 
 module.exports = 
 {
@@ -55,7 +55,7 @@ function unmuteLog(client, member, message)
                 { name: 'Moderator', value: `${message.author}`, inline: true},
             )
             .setThumbnail('attachment://Unmute.png')
-            .setFooter('Case updated on ' + date.toUTCString())
+            .setFooter('Case created on ' + date.toUTCString())
             
         client.channels.cache.get(loggingChannel['id']).send({ embeds: [unmuteAddLog], files: ['src/icons/Unmute.png'] }) 
         

@@ -1,6 +1,6 @@
 const config = require('../config.json')
 const { MessageEmbed, GuildBan } = require('discord.js')
-const sql = require('../typDiscordBot').getsql
+const sql = require('../alice').getsql
 
 module.exports = (Discord, client, ban) =>
 {
@@ -28,7 +28,7 @@ function unbanLog(client, ban)
                 { name: 'Moderator', value: `${ban.client.user}`, inline: true},
             )
             .setThumbnail('attachment://Unban.png')
-            .setFooter('Case updated on ' + date.toUTCString())
+            .setFooter('Case created on ' + date.toUTCString())
             
         client.channels.cache.get(loggingChannel['id']).send({ embeds: [unbanAddLog], files: ['src/icons/Unban.png'] })  
         
