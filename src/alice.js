@@ -3,7 +3,7 @@ const client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD
 const mysql = require('mysql')
 const fs = require('fs')
 
-const config = require('./config.json')  
+const config = require('../config.json')  
 
 var sql = mysql.createConnection 
 ({

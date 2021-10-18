@@ -1,4 +1,4 @@
-const config = require('../config.json')
+const config = require('../../config.json')
 const { MessageEmbed, GuildBan } = require('discord.js')
 const sql = require('../alice').getsql
 
