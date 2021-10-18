@@ -57,10 +57,10 @@ function banLog(client, member, message, reason)
                 { name: 'Moderator', value: `${message.author}`, inline: true},
                 { name: 'Reason', value: '```' + `${reason} ` + '```'}
             )
-            .setThumbnail(config['Graphical-Settings']['Ban-Icon'])
+            .setThumbnail('attachment://Ban.png')
             .setFooter('Case created on ' + date.toUTCString())
             
-        client.channels.cache.get(loggingChannel['id']).send({ embeds: [banAddLog] }) 
+        client.channels.cache.get(loggingChannel['id']).send({ embeds: [banAddLog], files: ['src/icons/Ban.png'] }) 
             
         //SQL
         if (sql.state === 'authenticated')

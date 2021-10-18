@@ -27,10 +27,10 @@ function unbanLog(client, ban)
                 { name: 'User', value: `${ban.user}`, inline: true},
                 { name: 'Moderator', value: `${ban.client.user}`, inline: true},
             )
-            .setThumbnail(config['Graphical-Settings']['Unban-Icon'])
+            .setThumbnail('attachment://Unban.png')
             .setFooter('Case updated on ' + date.toUTCString())
             
-        client.channels.cache.get(loggingChannel['id']).send({ embeds: [unbanAddLog] })  
+        client.channels.cache.get(loggingChannel['id']).send({ embeds: [unbanAddLog], files: ['src/icons/Unban.png'] })  
         
         //SQL
         if (sql.state === 'authenticated')

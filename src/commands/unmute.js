@@ -54,10 +54,10 @@ function unmuteLog(client, member, message)
                 { name: 'User', value: `${member}`, inline: true},
                 { name: 'Moderator', value: `${message.author}`, inline: true},
             )
-            .setThumbnail(config['Graphical-Settings']['Unmute-Icon'])
+            .setThumbnail('attachment://Unmute.png')
             .setFooter('Case updated on ' + date.toUTCString())
             
-        client.channels.cache.get(loggingChannel['id']).send({ embeds: [unmuteAddLog] }) 
+        client.channels.cache.get(loggingChannel['id']).send({ embeds: [unmuteAddLog], files: ['src/icons/Unmute.png'] }) 
         
         //SQL
         if (sql.state === 'authenticated')

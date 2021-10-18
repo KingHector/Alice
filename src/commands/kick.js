@@ -57,10 +57,10 @@ function kickLog(client, member, message, reason)
                 { name: 'Moderator', value: `${message.author}`, inline: true},
                 { name: 'Reason', value: '```' + `${reason} ` + '```'}
             )
-            .setThumbnail(config['Graphical-Settings']['Kick-Icon'])
+            .setThumbnail('attachment://Kick.png')
             .setFooter('Case created on ' + date.toUTCString())
             
-        client.channels.cache.get(loggingChannel['id']).send({ embeds: [kickAddLog] })   
+        client.channels.cache.get(loggingChannel['id']).send({ embeds: [kickAddLog], files: ['src/icons/Kick.png'] })   
 
         //SQL
         if (sql.state === 'authenticated')

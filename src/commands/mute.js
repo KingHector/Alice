@@ -1,7 +1,6 @@
 const config = require('../config.json')
 const { MessageEmbed } = require('discord.js')
 const sql = require('../typDiscordBot').getsql
-
 const prefix = config['Main-Settings']['Command-Prefix']
 
 module.exports = 
@@ -63,10 +62,10 @@ function muteLog(client, member, message, reason)
                 { name: 'Moderator', value: `${message.author}`, inline: true},
                 { name: 'Reason', value: '```' + `${reason} ` + '```'}
             )
-            .setThumbnail(config['Graphical-Settings']['Mute-Icon'])
+            .setThumbnail('attachment://Mute.png')
             .setFooter('Case created on ' + date.toUTCString())
      
-        client.channels.cache.get(loggingChannel['id']).send({ embeds: [muteAddLog] }) 
+        client.channels.cache.get(loggingChannel['id']).send({ embeds: [muteAddLog], files: ['src/icons/Mute.png'] }) 
         
         //SQL
         if (sql.state === 'authenticated')
