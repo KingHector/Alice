@@ -18,7 +18,7 @@ sql.connect(error =>
         if (!error) 
         {
             console.log('Connected to Database.')
-            sql.query(`CREATE TABLE IF NOT EXISTS ${config['Database']['Table-Name']} (CaseID INT, Punishment VARCHAR(255), UUID VARCHAR(255), Embed JSON, Date DATE)`) 
+            sql.query(`CREATE TABLE IF NOT EXISTS ${config['Database']['DiscordLogs-Table-Name']} (CaseID INT, Punishment VARCHAR(255), UUID VARCHAR(255), Embed JSON, Date DATE)`) 
         }
         else //No Database Connection
             console.warn('Could not connect to Database. Logs will not be stored.')

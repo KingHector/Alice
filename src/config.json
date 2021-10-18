@@ -17,6 +17,7 @@
         "User": "root",
         "Password": "",
         "Database": "test",
-        "Table-Name": "discordlogs"
+
+        "DiscordLogs-Table-Name": "discordlogs"
     }
 }

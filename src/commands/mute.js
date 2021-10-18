@@ -43,7 +43,7 @@ module.exports =
 
 function muteLog(client, member, message, reason)  
 {
-    sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['Table-Name']}`, function(err, rows, fields) 
+    sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['DiscordLogs-Table-Name']}`, function(err, rows, fields) 
     {
         var currentCase = undefined
         sql.state === 'authenticated' ? currentCase = rows['0'].cases + 1 : undefined
@@ -69,7 +69,7 @@ function muteLog(client, member, message, reason)
         
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'MUTE', ${member.id}, '${JSON.stringify(muteAddLog)}', '${isoDate}')`)
+            sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES (${currentCase}, 'MUTE', ${member.id}, '${JSON.stringify(muteAddLog)}', '${isoDate}')`)
     })
 } 
 

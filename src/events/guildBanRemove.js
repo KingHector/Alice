@@ -10,7 +10,7 @@ module.exports = (Discord, client, ban) =>
 
 function unbanLog(client, ban)  
 {
-    sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['Table-Name']}`, function(err, rows, fields) 
+    sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['DiscordLogs-Table-Name']}`, function(err, rows, fields) 
     {
         var currentCase = undefined
         sql.state === 'authenticated' ? currentCase = rows['0'].cases + 1 : undefined
@@ -34,6 +34,6 @@ function unbanLog(client, ban)
         
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['Table-Name']} VALUES (${currentCase}, 'UNBAN', ${ban.user.id}, '${JSON.stringify(unbanAddLog)}')`)
+            sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES (${currentCase}, 'UNBAN', ${ban.user.id}, '${JSON.stringify(unbanAddLog)}')`)
     })
 }
