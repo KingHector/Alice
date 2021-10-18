@@ -20,7 +20,7 @@ module.exports =
         for (const file of commandFiles)
         {
             commandsList += prefix + file.replace('.js', '') + '\n'
-            descriptionList += client.commands.get(file.replace('.js', '')).description + '\n'
+            descriptionList += client.commands.get(file.replace('.js', '')).description + '\n' 
         }
 
         const helpEmbed = new MessageEmbed()
@@ -32,7 +32,7 @@ module.exports =
                 { name: '\u200B', value: '\u200B', inline: true  },
                 { name: 'Description', value: descriptionList, inline: true},
             )
-            .setFooter(`ID: ${client.id} | Project Alice`)
+            .setFooter(`ID: ${client.user.id} | Project Alice`)
 
         message.channel.send({ embeds: [helpEmbed] })
     }

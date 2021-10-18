@@ -31,8 +31,8 @@ Your bot config should look like this. If it's missing any lines be sure to add 
 {
     "Main-Settings":
     {
-        "Bot-Token": "ODc3OTUxMTcxMDU3MzAzNTgz.YR6Fvg.qeHHDzpDEMvd2zosS5QHVmgFXts", 
-        "Server-ID": "883770811083796500",
+        "Bot-Token": "YOUR-BOT-TOKEN",
+        "Server-ID": "YOUR-SERVER-ID",
         "Command-Prefix": "!",
 
         "Logging-Channel": "modlog",
@@ -47,7 +47,8 @@ Your bot config should look like this. If it's missing any lines be sure to add 
         "User": "root",
         "Password": "",
         "Database": "test",
-        "Table-Name": "discordlogs"
+
+        "DiscordLogs-Table-Name": "discordlogs"
     }
 }
 ```
