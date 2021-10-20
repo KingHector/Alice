@@ -52,3 +52,7 @@ Your bot config should look like this. Every single option is tweakable to your 
     }
 }
 ```
+
+### Starting Bot
+
+In order to start the bot you just need to run the start.bat file. Simple as that.
