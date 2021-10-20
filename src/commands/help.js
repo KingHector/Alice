@@ -1,6 +1,5 @@
 const fs = require('fs')
 const config = require('../../config.json')
-const mysql = require('mysql')
 const { MessageEmbed } = require('discord.js')
 
 const prefix = config['Main-Settings']['Command-Prefix']

@@ -6,7 +6,7 @@ module.exports = (Discord, client, message) =>
     client.user.setActivity(config['Main-Settings']['Activity-Message'], { type: config['Main-Settings']['Activity-Type'] })
 
     const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
-
+    
     //Roles Creator
     roleCreator(guild, 'Muted')
 

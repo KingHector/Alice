@@ -1,6 +1,7 @@
 const config = require('../../config.json')
 const { MessageEmbed } = require('discord.js')
 const sql = require('../alice').getsql
+
 const prefix = config['Main-Settings']['Command-Prefix']
 
 module.exports = 
