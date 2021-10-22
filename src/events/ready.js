@@ -4,6 +4,7 @@ module.exports = (Discord, client, message) =>
 {
     console.log('Bot Online.')
     client.user.setActivity(config['Main-Settings']['Activity-Message'], { type: config['Main-Settings']['Activity-Type'] })
+    client.user.setStatus(config['Main-Settings']['Status'])
 
     const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
     

@@ -1,7 +1,6 @@
 const Discord = require('discord.js')
 const client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_BANS', 'GUILD_MEMBERS']})
 const mysql = require('mysql')
-const fs = require('fs')
 
 const config = require('../config.json')  
 

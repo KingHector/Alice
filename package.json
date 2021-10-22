@@ -2,7 +2,7 @@
     "name": "alice",
     "version": "1.0",
     "description": "Moderation Discord Bot made for self hosting it. Works on it's own or with plugins.",
-    "main": "alice.js",
+    "main": "src/alice.js",
     "author": "King_Hector",
     "dependencies": {
         "discord.js": "^13.1.0",

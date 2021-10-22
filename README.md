@@ -37,6 +37,7 @@ Your bot config should look like this. Every single option is tweakable to your 
 
         "Logging-Channel": "modlog",
 
+        "Status": "ONLINE",
         "Activity-Type": "PLAYING",
         "Activity-Message": "!help"
     },
