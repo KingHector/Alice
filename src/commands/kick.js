@@ -31,7 +31,7 @@ module.exports =
                     message.channel.send('**You cannot kick this member.**')
             }
             else //No member specified
-                message.channel.send(':x: **Invalid usage. Use !kick <user> __<reason>__.**')  
+                message.channel.send(`:x: **Invalid usage. Use ${prefix}kick <user> __<reason>__.**`)  
         }
     }
 }

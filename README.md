@@ -12,6 +12,7 @@ Moderation Discord Bot made for self hosting it. Works on it's own or with plugi
 - !warn &lt;user&gt; &lt;reason&gt; `Warns any user in your server.`
 - !inquire &lt;user&gt; `Shows all the punishments a user has received.`
 - !case &lt;caseNumber&gt; `Shows the punishment case specified.`
+- !clear &lt;amount&gt; `Clear up to 100 messages.`
 
 ## How To Use
 

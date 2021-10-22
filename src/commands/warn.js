@@ -25,7 +25,7 @@ module.exports =
                 warnLog(client, member, message, reason)    
             }
             else //No member specified
-                message.channel.send(':x: **Invalid usage. Use !warn <user> <reason>.**')  
+                message.channel.send(`:x: **Invalid usage. Use ${prefix}warn <user> <reason>.**`)  
         }
     }
 }

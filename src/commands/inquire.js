@@ -47,7 +47,7 @@ module.exports =
                     })
                 }
                 else //No member specified
-                    message.channel.send(':x: **Invalid usage. Use !inquire <user>.**')  
+                    message.channel.send(`:x: **Invalid usage. Use ${prefix}inquire <user>.**`)  
             }
             else //Database offline
                 message.channel.send(':x: **Cannot receive inquiries from database.**')  

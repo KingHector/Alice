@@ -21,7 +21,7 @@ module.exports =
                     })
                 }
                 else //No case specified
-                    message.channel.send(':x: **Invalid usage. Use !case <caseNumber>.**')
+                    message.channel.send(`:x: **Invalid usage. Use ${prefix}case <caseNumber>.**`)
             }
         }
         else //Database offline

@@ -31,7 +31,7 @@ module.exports =
                     message.channel.send('**You cannot ban this member.**')
             }
             else //No member specified
-                message.channel.send(':x: **Invalid usage. Use !ban <user> __<reason>__.**')  
+                message.channel.send(`:x: **Invalid usage. Use ${prefix}ban <user> __<reason>__.**`)  
         }
     }
 }

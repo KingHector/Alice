@@ -29,7 +29,7 @@ module.exports =
                     message.channel.send('**Member is not muted.**')
             }
             else //No member specified
-                message.channel.send(':x: **Invalid usage. Use !unmute <user>.**')  
+                message.channel.send(`:x: **Invalid usage. Use ${prefix}unmute <user>.**`)  
         }
     }
 }

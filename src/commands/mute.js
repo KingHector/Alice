@@ -37,7 +37,7 @@ module.exports =
                     message.channel.send('**You cannot mute this member.**')
             }
             else //No member specified
-                message.channel.send(':x: **Invalid usage. Use !mute <user> __<reason>__.**')  
+                message.channel.send(`:x: **Invalid usage. Use ${prefix}mute <user> __<reason>__.**`)  
         }
     }
 }
