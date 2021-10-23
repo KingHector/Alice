@@ -20,7 +20,7 @@ Moderation Discord Bot made for self hosting it. Works on it's own or with plugi
 
 Fist things first you need to head over to [Discord Developer Portal](https://discord.com/developers/applications) and create a new application. Set an Name and optionally an Icon and Description (Name and Icon will not be visible to other people this is just a general name, the Description will show up in the bots About Me section).
 
-After you set your application credentials, head over to the **Bot** section and set a Username and Icon for your bot. Your bot **Token** will be used on the config. Make sure you do not share it and keep it hidden. Also make sure you enable **Server Members Intent** and **Requires OAUTH2 Code Grant**
+After you set your application credentials, head over to the **Bot** section and set a Username and Icon for your bot. Your bot **Token** will be used on the config. Make sure you do not share it and keep it hidden. Also make sure you enable **Server Members Intent**.
 
 Now your bot is ready to be invited to your server. Head over to [this](https://discordapi.com/permissions.html#8) site check Administrator and insert your Client ID which is located in the General Information section (Application ID). Now click the generated link and add the bot to the server.
 
