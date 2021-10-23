@@ -1,8 +1,12 @@
 const Discord = require('discord.js')
 const client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_BANS', 'GUILD_MEMBERS']})
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 const mysql = require('mysql')
+const fs = require('fs')
 
 const config = require('../config.json')  
+const token = config['Main-Settings']['Bot-Token']
 
 var sql = mysql.createConnection 
 ({
@@ -33,4 +37,4 @@ client.events = new Discord.Collection();
         require(`./handlers/${handler}`)(client, Discord)
     });    
 
-client.login(config['Main-Settings']['Bot-Token'])
+client.login(token)
