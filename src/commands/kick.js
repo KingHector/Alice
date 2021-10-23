@@ -17,7 +17,7 @@ module.exports =
         {
             if (args.length >= 1)
             {
-                const reason = message.content.slice(prefix.length + 2).slice('kick'.length).slice(args[0].length)
+                const reason = message.content.slice(prefix.length + 2).slice(this.name.length).slice(args[0].length)
                 const targetedMember = message.guild.members.cache.get(member.id)
                 
                 if (!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot)
@@ -25,7 +25,7 @@ module.exports =
                     sendNotice(targetedMember, client, reason)
                     targetedMember.kick({ reason: args[1] })
                     message.channel.send(':boot: Successfully kicked <@' + member + '>.')
-                    kickLog(client, member, message, reason)
+                    kickLog(client, member, message, reason, this.name)
                 }
                 else //Member is Admin
                     message.channel.send('**You cannot kick this member.**')
@@ -36,7 +36,7 @@ module.exports =
     }
 }
 
-function kickLog(client, member, message, reason)  
+function kickLog(client, member, message, reason, commandName)  
 {
     sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['DiscordLogs-Table-Name']}`, function(err, rows, fields) 
     {
@@ -64,7 +64,12 @@ function kickLog(client, member, message, reason)
 
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES (${currentCase}, 'KICK', ${member.id}, '${JSON.stringify(kickAddLog)}', '${isoDate}')`)
+            sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES 
+                (${currentCase}, 
+                '${commandName}', 
+                 ${member.id}, 
+                '${JSON.stringify(kickAddLog)}', 
+                '${isoDate}')`)
     })
 }
 

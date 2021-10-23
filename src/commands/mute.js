@@ -18,7 +18,7 @@ module.exports =
         {
             if (args.length >= 1)
             {
-                const reason = message.content.slice(prefix.length + 2).slice('mute'.length).slice(args[0].length)
+                const reason = message.content.slice(prefix.length + 2).slice(this.name.length).slice(args[0].length)
                 const targetedMember = message.guild.members.cache.get(member.id)
 
                 if ((!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot))
@@ -28,7 +28,7 @@ module.exports =
                         sendNotice(targetedMember, client, reason)
                         targetedMember.roles.add(role)
                         message.channel.send(':mute: Successfully muted <@' + member + '>.')
-                        muteLog(client, member, message, reason)
+                        muteLog(client, member, message, reason, this.name)
                     }
                     else //Member is already Muted
                       message.channel.send('**Member is already muted.**')
@@ -42,7 +42,7 @@ module.exports =
     }
 }
 
-function muteLog(client, member, message, reason)  
+function muteLog(client, member, message, reason, commandName)  
 {
     sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['DiscordLogs-Table-Name']}`, function(err, rows, fields) 
     {
@@ -70,7 +70,12 @@ function muteLog(client, member, message, reason)
         
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES (${currentCase}, 'MUTE', ${member.id}, '${JSON.stringify(muteAddLog)}', '${isoDate}')`)
+            sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES 
+                (${currentCase}, 
+                '${commandName}', 
+                 ${member.id}, 
+                '${JSON.stringify(muteAddLog)}', 
+                '${isoDate}')`)
     })
 } 
 

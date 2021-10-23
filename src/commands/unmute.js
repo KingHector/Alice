@@ -23,7 +23,7 @@ module.exports =
                     sendNotice(targetedMember, client)
                     targetedMember.roles.remove(role)
                     message.channel.send(':loud_sound: Successfully unmuted <@' + member + '>.')
-                    unmuteLog(client, member, message)
+                    unmuteLog(client, member, message, this.name)
                 }
                 else //Member is not muted
                     message.channel.send('**Member is not muted.**')
@@ -34,7 +34,7 @@ module.exports =
     }
 }
 
-function unmuteLog(client, member, message)  
+function unmuteLog(client, member, message, commandName)  
 {
     sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['DiscordLogs-Table-Name']}`, function(err, rows, fields) 
     {
@@ -61,7 +61,12 @@ function unmuteLog(client, member, message)
         
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES (${currentCase}, 'UNMUTE', ${member.id}, '${JSON.stringify(unmuteAddLog)}', '${isoDate}')`)
+            sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES 
+                (${currentCase}, 
+                '${commandName}', 
+                 ${member.id}, 
+                '${JSON.stringify(unmuteAddLog)}', 
+                '${isoDate}')`)
     })
 }   
 

@@ -17,7 +17,7 @@ module.exports =
         {
             if (args.length >= 1)
             {
-                const reason = message.content.slice(prefix.length + 2).slice('ban'.length).slice(args[0].length)
+                const reason = message.content.slice(prefix.length + 2).slice(this.name.length).slice(args[0].length)
                 const targetedMember = message.guild.members.cache.get(member.id)
                 
                 if (!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot)
@@ -25,7 +25,7 @@ module.exports =
                     sendNotice(targetedMember, client, reason)
                     targetedMember.ban({ reason: args[1] })
                     message.channel.send(':hammer: Successfully banned <@' + member + '>.')
-                    banLog(client, member, message, reason)
+                    banLog(client, member, message, reason, this.name)
                 }
                 else //Member is Admin
                     message.channel.send('**You cannot ban this member.**')
@@ -36,7 +36,7 @@ module.exports =
     }
 }
 
-function banLog(client, member, message, reason)  
+function banLog(client, member, message, reason, commandName)  
 {
     sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['DiscordLogs-Table-Name']}`, function(err, rows, fields) 
     {
@@ -64,7 +64,12 @@ function banLog(client, member, message, reason)
             
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES (${currentCase}, 'BAN', ${member.id}, '${JSON.stringify(banAddLog)}, '${isoDate}')`)
+            sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES 
+                (${currentCase}, 
+                '${commandName}', 
+                 ${member.id}, 
+                '${JSON.stringify(banAddLog)}, 
+                '${isoDate}')`)
     })
 }
 

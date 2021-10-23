@@ -17,12 +17,12 @@ module.exports =
         {
             if (args.length >= 2)
             {
-                const reason = message.content.slice(prefix.length + 2).slice('warn'.length).slice(args[0].length)
+                const reason = message.content.slice(prefix.length + 2).slice(this.name.length).slice(args[0].length)
                 const targetedMember = message.guild.members.cache.get(member.id)
                 
                 sendNotice(targetedMember, client, reason)
                 message.channel.send(':warning: Successfully warned <@' + member + '>.')
-                warnLog(client, member, message, reason)    
+                warnLog(client, member, message, reason, this.name)    
             }
             else //No member specified
                 message.channel.send(`:x: **Invalid usage. Use ${prefix}warn <user> <reason>.**`)  
@@ -30,7 +30,7 @@ module.exports =
     }
 }
 
-function warnLog(client, member, message, reason)  
+function warnLog(client, member, message, reason, commandName)  
 {
     sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['DiscordLogs-Table-Name']}`, function(err, rows, fields) 
     {
@@ -58,7 +58,12 @@ function warnLog(client, member, message, reason)
 
         //SQL
         if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES (${currentCase}, 'WARN', ${member.id}, '${JSON.stringify(warnAddLog)}', '${isoDate}')`)
+            sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES 
+                (${currentCase}, 
+                '${commandName}', 
+                 ${member.id}, 
+                '${JSON.stringify(warnAddLog)}', 
+                '${isoDate}')`)
     })
 }   
 
