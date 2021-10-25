@@ -1,5 +1,5 @@
 const fs = require('fs')
-const config = require('../../config.json')
+const config = require('../../Configuration/config.json')
 const { MessageEmbed } = require('discord.js')
 
 const prefix = config['Main-Settings']['Command-Prefix']

@@ -5,7 +5,7 @@ const { Routes } = require('discord-api-types/v9');
 const mysql = require('mysql')
 const fs = require('fs')
 
-const config = require('../config.json')  
+const config = require('../Configuration/config.json')  
 const token = config['Main-Settings']['Bot-Token']
 
 var sql = mysql.createConnection 

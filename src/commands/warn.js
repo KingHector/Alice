@@ -1,4 +1,4 @@
-const config = require('../../config.json')
+const config = require('../../Configuration/config.json')
 const { MessageEmbed } = require('discord.js')
 const sql = require('../alice').getsql
 
