@@ -4,6 +4,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const mysql = require('mysql')
 const fs = require('fs')
+const chalk = require('chalk')
 
 const config = require('../Configuration/config.json')  
 const token = config['Main-Settings']['Bot-Token']
@@ -24,7 +25,7 @@ sql.connect(error =>
             sql.query(`CREATE TABLE IF NOT EXISTS ${config['Database']['DiscordLogs-Table-Name']} (CaseID INT, Punishment VARCHAR(255), UUID VARCHAR(255), Embed JSON, Date DATE)`) 
         }
         else //No Database Connection
-            console.warn('Could not connect to Database. Logs will not be stored.')
+            console.log(chalk.yellow('[WARN] Could not connect to Database. Logs will not be stored.'))
     })
 
 module.exports = { getsql: sql}            

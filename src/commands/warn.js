@@ -71,6 +71,10 @@ function sendNotice(targetedMember, client, reason)
 {
     const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
 
-    if (!targetedMember.user.bot)
-        targetedMember.send(`:warning: You have received a warning on the ` + '`' + `${guild.name}` + '`' + ` server. Reason: ` + '`' + `${reason}` + '`')
+    try 
+    {
+        if (!targetedMember.user.bot)
+            targetedMember.send(`:warning: You have received a warning on the ` + '`' + `${guild.name}` + '`' + ` server. Reason: ` + '`' + `${reason}` + '`')
+    }
+    catch (error) {}
 }
