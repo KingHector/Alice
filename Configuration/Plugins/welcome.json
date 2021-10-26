@@ -16,7 +16,7 @@
 
     "Give-Role-To-New-User": 
     {
-        "Enabled": true,
+        "Enabled": false,
 
         "Roles": []
     },
