@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const config = require('../../Configuration/config.json')
 const { MessageEmbed } = require('discord.js')
 const sql = require('../alice').getsql
@@ -25,10 +26,18 @@ module.exports =
                 {
                     if (!targetedMember.roles.cache.some(role => role.name === 'Muted'))
                     {
-                        sendNotice(targetedMember, client, reason)
-                        targetedMember.roles.add(role)
-                        message.channel.send(':mute: Successfully muted <@' + member + '>.')
-                        muteLog(client, member, message, reason, this.name)
+                        try
+                        {
+                            targetedMember.roles.add(role)
+                            sendNotice(targetedMember, client, reason)
+                            message.channel.send(':mute: Successfully muted <@' + member + '>.')
+                            muteLog(client, member, message, reason, this.name)
+                        }
+                        catch (error)
+                        {
+                            console.log(chalk.red('[ERROR] Muted role needs to be bellow the bot role.'))
+                            message.channel.send('An error occured check console for more info.')
+                        }
                     }
                     else //Member is already Muted
                       message.channel.send('**Member is already muted.**')
@@ -83,6 +92,10 @@ function sendNotice(targetedMember, client, reason)
 {
     const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
 
-    if (!targetedMember.user.bot)
-        targetedMember.send(`:mute: You have been muted on the ` + '`' + `${guild.name}` + '`' + ` server. Reason: ` + '`' + `${reason}` + '`')
+    try
+    {
+        if (!targetedMember.user.bot)
+            targetedMember.send(`:mute: You have been muted on the ` + '`' + `${guild.name}` + '`' + ` server. Reason: ` + '`' + `${reason}` + '`')
+    }
+    catch (error) {}
 }

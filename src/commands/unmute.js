@@ -74,6 +74,10 @@ function sendNotice(targetedMember, client)
 {
     const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
 
-    if (!targetedMember.user.bot)
-        targetedMember.send(`:loud_sound: You have been unmuted on the ` + '`' + `${guild.name}` + '`' + ` server.`)
+    try
+    {
+        if (!targetedMember.user.bot)
+            targetedMember.send(`:loud_sound: You have been unmuted on the ` + '`' + `${guild.name}` + '`' + ` server.`)
+    }
+    catch (error) {}
 }

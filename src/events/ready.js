@@ -1,11 +1,12 @@
+const chalk = require('chalk')
 const config = require('../../Configuration/config.json')
 
 module.exports = (Discord, client, message) =>
 {
-    console.log('Bot Online.')
+    console.log(chalk.blue('[INFO] Bot Online.'))
     client.user.setActivity(config['Main-Settings']['Activity-Message'], { type: config['Main-Settings']['Activity-Type'] })
     client.user.setStatus(config['Main-Settings']['Status'])
-
+    
     const guild = client.guilds.cache.get(config['Main-Settings']['Server-ID']) 
     
     //Roles Creator
