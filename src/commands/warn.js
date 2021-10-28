@@ -1,4 +1,5 @@
 const config = require('../../Configuration/config.json')
+const logsPlugin = require('../../Configuration/Plugins/logs.json')
 const { MessageEmbed } = require('discord.js')
 const sql = require('../alice').getsql
 
@@ -18,11 +19,19 @@ module.exports =
             if (args.length >= 2)
             {
                 const reason = message.content.slice(prefix.length + 2).slice(this.name.length).slice(args[0].length)
-                const targetedMember = message.guild.members.cache.get(member.id)
-                
-                sendNotice(targetedMember, client, reason)
-                message.channel.send(':warning: Successfully warned <@' + member + '>.')
-                warnLog(client, member, message, reason, this.name)    
+
+                try
+                {
+                    const targetedMember = message.guild.members.cache.get(member.id)
+                    
+                    sendNotice(targetedMember, client, reason)
+                    message.channel.send(':warning: Successfully warned <@' + member + '>.')
+                    warnLog(client, member, message, reason, this.name)
+                }
+                catch (error) //Pinged role instead of user
+                {
+                    message.channel.send(`:x: **Invalid usage. Use ${prefix}warn <user> <reason>.**`)  
+                }           
             }
             else //No member specified
                 message.channel.send(`:x: **Invalid usage. Use ${prefix}warn <user> <reason>.**`)  
@@ -32,7 +41,9 @@ module.exports =
 
 function warnLog(client, member, message, reason, commandName)  
 {
-    sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['DiscordLogs-Table-Name']}`, function(err, rows, fields) 
+    if (!logsPlugin['Discord-Logs']['Enabled']) return
+
+    sql.query(`SELECT COUNT(*) AS cases FROM ${logsPlugin['Discord-Logs']['Table-Name']}`, function(err, rows, fields) 
     {
         var currentCase = undefined
         sql.state === 'authenticated' ? currentCase = rows['0'].cases + 1 : undefined
@@ -47,7 +58,7 @@ function warnLog(client, member, message, reason, commandName)
             .setTitle(`WARN - Case #${currentCase}`)
             .setFields
             (
-                { name: 'User', value: `${member}`, inline: true},
+                { name: 'User', value: `${member} \\n test`, inline: true},
                 { name: 'Moderator', value: `${message.author}`, inline: true},
                 { name: 'Reason', value: '```' + `${reason} ` + '```'}
             )
@@ -55,7 +66,7 @@ function warnLog(client, member, message, reason, commandName)
             .setFooter('Case created on ' + date.toUTCString())
             
         client.channels.cache.get(loggingChannel['id']).send({ embeds: [warnAddLog], files: ['src/icons/Warn.png'] })   
-
+             
         //SQL
         if (sql.state === 'authenticated')
             sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES 

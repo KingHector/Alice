@@ -20,5 +20,6 @@
         "Database": "test",
 
         "DiscordLogs-Table-Name": "discordlogs"
+
     }
 }

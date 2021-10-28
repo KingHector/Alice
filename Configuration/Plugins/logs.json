@@ -1,0 +1,13 @@
+{
+    "Discord-Logs":
+    {
+        "Enabled": true,
+        "Table-Name": "discordlogs"
+    },
+
+    "Minecraft-Logs":
+    {
+        "Enabled": true,
+        "Table-Name": "mclogs"
+    }
+}

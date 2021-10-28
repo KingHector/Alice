@@ -1,4 +1,5 @@
 const config = require('../../Configuration/config.json')
+const logsPlugin = require('../../Configuration/Plugins/logs.json')
 const { MessageEmbed } = require('discord.js')
 const sql = require('../alice').getsql
 
@@ -16,17 +17,24 @@ module.exports =
         {
             if (args.length >= 1)
             {
-                const targetedMember = message.guild.members.cache.get(member.id)
-
-                if (targetedMember.roles.cache.some(role => role.name === 'Muted'))
+                try
                 {
-                    sendNotice(targetedMember, client)
-                    targetedMember.roles.remove(role)
-                    message.channel.send(':loud_sound: Successfully unmuted <@' + member + '>.')
-                    unmuteLog(client, member, message, this.name)
+                    const targetedMember = message.guild.members.cache.get(member.id)
+
+                    if (targetedMember.roles.cache.some(role => role.name === 'Muted'))
+                    {
+                        sendNotice(targetedMember, client)
+                        targetedMember.roles.remove(role)
+                        message.channel.send(':loud_sound: Successfully unmuted <@' + member + '>.')
+                        unmuteLog(client, member, message, this.name)
+                    }
+                    else //Member is not muted
+                        message.channel.send('**Member is not muted.**')
                 }
-                else //Member is not muted
-                    message.channel.send('**Member is not muted.**')
+                catch (error) //Pinged role instead of user
+                {
+                    message.channel.send(`:x: **Invalid usage. Use ${prefix}unmute <user>.**`)  
+                }        
             }
             else //No member specified
                 message.channel.send(`:x: **Invalid usage. Use ${prefix}unmute <user>.**`)  
@@ -36,7 +44,9 @@ module.exports =
 
 function unmuteLog(client, member, message, commandName)  
 {
-    sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['DiscordLogs-Table-Name']}`, function(err, rows, fields) 
+    if (!logsPlugin['Discord-Logs']['Enabled']) return
+
+    sql.query(`SELECT COUNT(*) AS cases FROM ${logsPlugin['Discord-Logs']['Table-Name']}`, function(err, rows, fields) 
     {
         var currentCase = undefined
         sql.state === 'authenticated' ? currentCase = rows['0'].cases + 1 : undefined

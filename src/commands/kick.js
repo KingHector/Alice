@@ -1,4 +1,5 @@
 const config = require('../../Configuration/config.json')
+const logsPlugin = require('../../Configuration/Plugins/logs.json')
 const { MessageEmbed } = require('discord.js')
 const sql = require('../alice').getsql
 
@@ -18,17 +19,24 @@ module.exports =
             if (args.length >= 1)
             {
                 const reason = message.content.slice(prefix.length + 2).slice(this.name.length).slice(args[0].length)
-                const targetedMember = message.guild.members.cache.get(member.id)
-                
-                if (!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot)
+                try
                 {
-                    sendNotice(targetedMember, client, reason)
-                    targetedMember.kick({ reason: args[1] })
-                    message.channel.send(':boot: Successfully kicked <@' + member + '>.')
-                    kickLog(client, member, message, reason, this.name)
+                    const targetedMember = message.guild.members.cache.get(member.id)
+                    
+                    if (!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot)
+                    {
+                        sendNotice(targetedMember, client, reason)
+                        targetedMember.kick({ reason: args[1] })
+                        message.channel.send(':boot: Successfully kicked <@' + member + '>.')
+                        kickLog(client, member, message, reason, this.name)
+                    }
+                    else //Member is Admin
+                        message.channel.send('**You cannot kick this member.**')
                 }
-                else //Member is Admin
-                    message.channel.send('**You cannot kick this member.**')
+                catch (error) //Pinged role instead of user
+                {
+                    message.channel.send(`:x: **Invalid usage. Use ${prefix}kick <user> __<reason>__.**`) 
+                }
             }
             else //No member specified
                 message.channel.send(`:x: **Invalid usage. Use ${prefix}kick <user> __<reason>__.**`)  
@@ -38,7 +46,9 @@ module.exports =
 
 function kickLog(client, member, message, reason, commandName)  
 {
-    sql.query(`SELECT COUNT(*) AS cases FROM ${config['Database']['DiscordLogs-Table-Name']}`, function(err, rows, fields) 
+    if (!logsPlugin['Discord-Logs']['Enabled']) return
+
+    sql.query(`SELECT COUNT(*) AS cases FROM ${logsPlugin['Discord-Logs']['Table-Name']}`, function(err, rows, fields) 
     {
         var currentCase = undefined
         sql.state === 'authenticated' ? currentCase = rows['0'].cases + 1 : undefined

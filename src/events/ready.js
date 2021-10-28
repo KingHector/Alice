@@ -3,7 +3,7 @@ const config = require('../../Configuration/config.json')
 
 module.exports = (Discord, client, message) =>
 {
-    console.log(chalk.blue('[INFO] Bot Online.'))
+    console.log(chalk.blueBright('[INFO] Bot Online.'))
     client.user.setActivity(config['Main-Settings']['Activity-Message'], { type: config['Main-Settings']['Activity-Type'] })
     client.user.setStatus(config['Main-Settings']['Status'])
     

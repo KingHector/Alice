@@ -1,3 +1,4 @@
+const logsPlugin = require('../../Configuration/Plugins/logs.json')
 const { MessageEmbed } = require('discord.js')
 const sql = require('../alice').getsql
 
@@ -9,48 +10,51 @@ module.exports =
     async execute(client, message, args, Discord)
     {
         const member = message.mentions.users.first()
-        if (sql.state === 'authenticated')
+        if (logsPlugin['Discord-Logs']['Enabled'])
         {
-            if (message.member.permissions.has('ADMINISTRATOR'))
+            if (sql.state === 'authenticated')
             {
-                if (args.length >= 1)
+                if (message.member.permissions.has('ADMINISTRATOR'))
                 {
-                    sql.query(`SELECT * FROM discordlogs WHERE UUID = '${member.id}'`, function(err, inquires, fields) 
+                    if (args.length >= 1)
                     {
-                        if (inquires.length != 0)
+                        sql.query(`SELECT * FROM discordlogs WHERE UUID = '${member.id}'`, function(err, inquires, fields) 
                         {
-                            var punishments = ''
-                            var cases = ''
-                            var dates = '' 
-
-                            for (let i = 0; i < inquires.length; i++)
+                            if (inquires.length != 0)
                             {
-                                punishments += inquires[i]['Punishment'] + '\n'
-                                cases +=  `Case #${inquires[i]['CaseID']}\n`
-                                dates += inquires[i]['Date'].toISOString().split('T')[0]  + '\n'
-                            }
+                                var punishments = ''
+                                var cases = ''
+                                var dates = '' 
 
-                            const inquireEmbed = new MessageEmbed()
-                                .setColor('#cec4ff')
-                                .setTitle(`${member.tag} - Punishments`)
-                                .setFields
-                                (
-                                    { name: 'Punishment', value: punishments, inline: true},
-                                    { name: 'Case', value: cases, inline: true},
-                                    { name: 'Date', value: dates, inline: true}
-                                )
-                                
-                            message.channel.send({ embeds: [inquireEmbed] })
-                        }
-                        else //No inquiries
-                            message.channel.send('**:white_check_mark: This member has no prior inquiries.**')
-                    })
+                                for (let i = 0; i < inquires.length; i++)
+                                {
+                                    punishments += inquires[i]['Punishment'] + '\n'
+                                    cases +=  `Case #${inquires[i]['CaseID']}\n`
+                                    dates += inquires[i]['Date'].toISOString().split('T')[0]  + '\n'
+                                }
+
+                                const inquireEmbed = new MessageEmbed()
+                                    .setColor('#cec4ff')
+                                    .setTitle(`${member.tag} - Punishments`)
+                                    .setFields
+                                    (
+                                        { name: 'Punishment', value: punishments, inline: true},
+                                        { name: 'Case', value: cases, inline: true},
+                                        { name: 'Date', value: dates, inline: true}
+                                    )
+                                    
+                                message.channel.send({ embeds: [inquireEmbed] })
+                            }
+                            else //No inquiries
+                                message.channel.send('**:white_check_mark: This member has no prior inquiries.**')
+                        })
+                    }
+                    else //No member specified
+                        message.channel.send(`:x: **Invalid usage. Use ${prefix}inquire <user>.**`)  
                 }
-                else //No member specified
-                    message.channel.send(`:x: **Invalid usage. Use ${prefix}inquire <user>.**`)  
+                else //Database offline
+                    message.channel.send(':x: **Cannot receive inquiries from database.**')  
             }
-            else //Database offline
-                message.channel.send(':x: **Cannot receive inquiries from database.**')  
         }
     }
 }
