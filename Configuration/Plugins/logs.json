@@ -8,6 +8,7 @@
     "Minecraft-Logs":
     {
         "Enabled": true,
-        "Table-Name": "mclogs"
+        "Table-Name": "mclogs",
+        "Servers": []
     }
 }
