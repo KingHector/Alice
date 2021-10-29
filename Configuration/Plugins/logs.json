@@ -9,6 +9,6 @@
     {
         "Enabled": true,
         "Table-Name": "mclogs",
-        "Servers": []
+        "Servers": ["test", "test2"]
     }
 }

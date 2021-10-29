@@ -19,7 +19,7 @@ module.exports =
             {
                 if (args.length >= 1)
                 {
-                    punishmentLogger(args, message)
+                    punishmentLogger(client, message, args)
                 }
                 else //No MC user specified
                     message.channel.send(`:x: **Invalid usage. Use ${prefix}punish <username>.**`)
@@ -28,13 +28,12 @@ module.exports =
     }
 }
 
-async function punishmentLogger(args, message)
+async function punishmentLogger(client, message, args)
 {
     try
     {
-        const uuid = await minecraftAPI.uuidForName(args[0])
+        const uuid = await minecraftAPI.uuidForName(args[0]) 
         const username = await minecraftAPI.nameHistoryForUuid(uuid)
-        const head = crafatar.getHead(uuid) + '?overlay' 
         
         //Punishment Selector    
         const punishmentSelector = new MessageActionRow()
@@ -68,44 +67,38 @@ async function punishmentLogger(args, message)
         
         serverSelector.addComponents(serverComponent)
 
-        //Punishment Embed
-        const embedDescription = `**Username:** ${username.at(-1).name} \n **UUID**: ${uuid} \n **Punishment:** - \n **Reason:** - \n`
-        
-        server.length > 0 ? embedDescription += '**Server:** -' : null
+        const punishmentEmbed = embed(username, uuid, '-', '-', '-', server)
 
-        const punishmentEmbed = new MessageEmbed()
-	        .setColor('#0099ff')
-	        .setTitle('Punishment Logger')
-            .setDescription(embedDescription)
-            .setThumbnail(head)
+        message.channel.send({ embeds: [punishmentEmbed], components: [punishmentSelector] })
+        .then(function (message) 
+        {
+            message.react('❌')
+            message.react('✅')
 
-            server.length > 0 ? sendEmbed(message, punishmentEmbed, punishmentSelector, serverSelector, true) : sendEmbed(message, punishmentEmbed, punishmentSelector, serverSelector, false)
+            module.exports = { getMsg : message, getUsername : username, getUUID: uuid, getServerSelector : serverSelector }
+        })
     } 
     catch(error)
     {
+        console.log(error)
         message.channel.send('**That Minecraft user does not exist.**')
         return
     }
 }
 
-function sendEmbed(message, punishmentEmbed, punishmentSelector, serverSelector, addField)
+function embed(username, uuid, Punishment, Server, Reason, server)
 {
-    if (addField)
-    {
-        message.channel.send({ embeds: [punishmentEmbed], components: [punishmentSelector, serverSelector] })
-            .then(function (message) 
-            {
-                message.react('❌')
-                message.react('✅')
-            })
-    }
-    else
-    {
-        message.channel.send({ embeds: [punishmentEmbed], components: [punishmentSelector] })
-            .then(function (message) 
-            {
-                message.react('❌')
-                message.react('✅')
-            })
-    }
+    const head = crafatar.getHead(uuid) + '?overlay'
+    let embedDescription = `**Username:** ${username.at(-1).name} \n **UUID**: ${uuid} \n **Punishment:** ${Punishment} \n`
+        
+    server.length > 0 ? embedDescription += `**Server:** ${Server} \n` : null
+    embedDescription += `**Reason:** ${Reason}`
+
+    const punishmentEmbed = new MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle('Punishment Logger')
+        .setDescription(embedDescription)
+        .setThumbnail(head)
+
+    return punishmentEmbed    
 }
