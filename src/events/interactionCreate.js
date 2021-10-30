@@ -3,6 +3,8 @@ const logsPlugin = require('../../Configuration/Plugins/logs.json')
 const index = require('../alice')
 
 let punishment
+let serverType
+let addReason = false
 
 //Server Selector        
 const serverSelector = new MessageActionRow()
@@ -36,20 +38,22 @@ module.exports = (Discord, client, interaction) =>
 
                 if (server.length > 0)
                 {
-                    message.edit({ embeds: [index.embed(username, uuid, punishment, '-', '-', server)], components: [serverSelector] })
+                    message.edit({ content: ':desktop: **Select a server.**', embeds: [index.embed(username, uuid, punishment, '-', '-', server)], components: [serverSelector] })
                 }
                 else
                 {
-                    message.edit({ embeds: [index.embed(username, uuid, punishment, '-', '-', server)], components: [] })
-                    module.exports = { getMessage: message, getPunishment: punishment }  
+                    message.edit({ content: ':pencil: **Provide a punishment reason.**', embeds: [index.embed(username, uuid, punishment, '-', '-', server)], components: [] }) 
+                    addReason = true
                 }  
                 break
 
             case 'serverSelector':
-                const servetType = interaction.values[0] 
-                message.edit({ embeds: [index.embed(username, uuid, punishment, servetType, '-', server)], components: [] })
-                module.exports = { getMessage : message, getPunishment : punishment, getServer : servetType }
+                serverType = interaction.values[0] 
+                message.edit({ content: ':pencil: **Provide a punishment reason.**', embeds: [index.embed(username, uuid, punishment, serverType, '-', server)], components: [] })
+                addReason = true
                 break
         }
+
+        module.exports = { getMessage : message, getPunishment : punishment, getServerType : serverType, getServerAmount : server, getAddReason : addReason }
     }
 }

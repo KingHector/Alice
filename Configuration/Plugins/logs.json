@@ -2,14 +2,16 @@
     "Discord-Logs":
     {
         "Enabled": true,
+        
         "Table-Name": "discordlogs"
     },
 
     "Minecraft-Logs":
     {
         "Enabled": true,
+
         "Table-Name": "mclogs",
         "Punishments": ["BAN", "UNBAN", "KICK", "WARN", "MUTE", "UNMUTE"],
-        "Servers": []
+        "Servers": ["SMP", "VANILLA"]
     }
 }

@@ -20,17 +20,16 @@ module.exports = (Discord, client, message) =>
 
     //Punishment Logger
     const punishmentMessage = require('./interactionCreate').getMessage
+    const addReason = require('./interactionCreate').getAddReason
 
-    if (punishmentMessage)
+    if (punishmentMessage && addReason)
     {
         const username = require('../../src/commands/punish').getUsername
         const uuid = require('../../src/commands/punish').getUUID
         const punishment = require('./interactionCreate').getPunishment
-        const server = require('./interactionCreate').getServer
+        const server = require('./interactionCreate').getServerType
+        const serverAmount = require('./interactionCreate').getServerAmount
 
-        var i
-        server ? i = 1 : i = 0
-
-        punishmentMessage.edit({ embeds: [index.embed(username, uuid, punishment, server, message, i)] })
+        punishmentMessage.edit({ embeds: [index.embed(username, uuid, punishment, server, message, serverAmount)] })
     }
 }

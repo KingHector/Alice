@@ -54,7 +54,7 @@ async function punishmentLogger(client, message, args)
 
         const punishmentEmbed = index.embed(username, uuid, '-', '-', '-', server)
 
-        message.channel.send({ embeds: [punishmentEmbed], components: [punishmentSelector] })
+        message.channel.send({ content: ':scales: **Select a punishment.**', embeds: [punishmentEmbed], components: [punishmentSelector] })
             .then(function (message) 
             {
                 message.react('❌')
@@ -65,7 +65,6 @@ async function punishmentLogger(client, message, args)
     } 
     catch(error)
     {
-        console.log(error)
         message.channel.send('**That Minecraft user does not exist.**')
         return
     }
