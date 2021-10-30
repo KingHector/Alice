@@ -2,6 +2,7 @@ const Discord = require('discord.js')
 const client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_BANS', 'GUILD_MEMBERS']})
 const mysql = require('mysql')
 const chalk = require('chalk')
+const crafatar = require('crafatar')
 
 const config = require('../Configuration/config.json')
 const logsPlugin = require('../Configuration/Plugins/logs.json') 
@@ -44,3 +45,22 @@ client.events = new Discord.Collection();
     });    
 
 client.login(token)
+
+//Punishment Embed
+module.exports.embed = function embed(username, uuid, Punishment, Server, Reason, server)
+{
+    const finalUsername = username.at(-1).name
+    const head = crafatar.getHead(uuid) + '?overlay'
+    let embedDescription = `**Username:** ${finalUsername} \n **UUID**: ${uuid} \n **Punishment:** ${Punishment} \n`
+        
+    server.length > 0 ? embedDescription += `**Server:** ${Server} \n` : null
+    embedDescription += `**Reason:** ${Reason} \n\n **Player Info:** [NameMC](https://mine.ly/${finalUsername})`
+
+    const punishmentEmbed = new Discord.MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle(`Punishment Logger - ${finalUsername}`)
+        .setDescription(embedDescription)
+        .setThumbnail(head)
+
+    return punishmentEmbed    
+}

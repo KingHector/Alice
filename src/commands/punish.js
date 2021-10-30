@@ -1,7 +1,7 @@
 const config = require('../../Configuration/config.json')
 const logsPlugin = require('../../Configuration/Plugins/logs.json')
 const { MessageEmbed, MessageActionRow, MessageSelectMenu } = require('discord.js')
-const crafatar = require('crafatar')
+const index = require('../alice')
 const minecraftAPI = require('minecraft-api')
 
 const prefix = config['Main-Settings']['Command-Prefix']
@@ -34,11 +34,12 @@ async function punishmentLogger(client, message, args)
     {
         const uuid = await minecraftAPI.uuidForName(args[0]) 
         const username = await minecraftAPI.nameHistoryForUuid(uuid)
+        const server = logsPlugin['Minecraft-Logs']['Servers']
         
         //Punishment Selector    
         const punishmentSelector = new MessageActionRow()
         const punishmentComponent = new MessageSelectMenu().setCustomId('punishmentSelector').setPlaceholder('Select Punishment')
-        const punishmentType = ['BAN', 'UNBAN', 'KICK', 'WARN', 'MUTE', 'UNMUTE']
+        const punishmentType = logsPlugin['Minecraft-Logs']['Punishments']
         
         for (const p of punishmentType)
         {
@@ -50,33 +51,17 @@ async function punishmentLogger(client, message, args)
         }      
         
         punishmentSelector.addComponents(punishmentComponent)
-        
-        //Server Selector        
-        const serverSelector = new MessageActionRow()
-        const serverComponent = new MessageSelectMenu().setCustomId('serverSelector').setPlaceholder('Select Server')
-        const server = logsPlugin['Minecraft-Logs']['Servers']
-        
-        for (const s of server)
-        {
-            serverComponent.addOptions
-                ([{
-                    label: s,
-                    value: s
-                }])
-        }
-        
-        serverSelector.addComponents(serverComponent)
 
-        const punishmentEmbed = embed(username, uuid, '-', '-', '-', server)
+        const punishmentEmbed = index.embed(username, uuid, '-', '-', '-', server)
 
         message.channel.send({ embeds: [punishmentEmbed], components: [punishmentSelector] })
-        .then(function (message) 
-        {
-            message.react('❌')
-            message.react('✅')
+            .then(function (message) 
+            {
+                message.react('❌')
+                message.react('✅')
 
-            module.exports = { getMsg : message, getUsername : username, getUUID: uuid, getServerSelector : serverSelector }
-        })
+                module.exports = { getMsg : message, getUsername : username, getUUID : uuid }
+            })
     } 
     catch(error)
     {
@@ -84,21 +69,4 @@ async function punishmentLogger(client, message, args)
         message.channel.send('**That Minecraft user does not exist.**')
         return
     }
-}
-
-function embed(username, uuid, Punishment, Server, Reason, server)
-{
-    const head = crafatar.getHead(uuid) + '?overlay'
-    let embedDescription = `**Username:** ${username.at(-1).name} \n **UUID**: ${uuid} \n **Punishment:** ${Punishment} \n`
-        
-    server.length > 0 ? embedDescription += `**Server:** ${Server} \n` : null
-    embedDescription += `**Reason:** ${Reason}`
-
-    const punishmentEmbed = new MessageEmbed()
-        .setColor('#0099ff')
-        .setTitle('Punishment Logger')
-        .setDescription(embedDescription)
-        .setThumbnail(head)
-
-    return punishmentEmbed    
 }

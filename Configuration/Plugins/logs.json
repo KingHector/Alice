@@ -9,6 +9,7 @@
     {
         "Enabled": true,
         "Table-Name": "mclogs",
-        "Servers": ["test", "test2"]
+        "Punishments": ["BAN", "UNBAN", "KICK", "WARN", "MUTE", "UNMUTE"],
+        "Servers": []
     }
 }
