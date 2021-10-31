@@ -1,7 +1,6 @@
 const config = require('../../Configuration/config.json')
 const logsPlugin = require('../../Configuration/Plugins/logs.json')
-const { MessageEmbed } = require('discord.js')
-const sql = require('../alice').getsql
+const embedCreators = require('../utilities/embedCreators')
 
 module.exports = 
 {
@@ -26,7 +25,7 @@ module.exports =
                         sendNotice(targetedMember, client)
                         targetedMember.roles.remove(role)
                         message.channel.send(':loud_sound: Successfully unmuted <@' + member + '>.')
-                        unmuteLog(client, member, message, this.name)
+                        embedCreators.log(client, '#ADD8E6', member, message, null, 'UNMUTE', false)
                     }
                     else //Member is not muted
                         message.channel.send('**Member is not muted.**')
@@ -40,45 +39,7 @@ module.exports =
                 message.channel.send(`:x: **Invalid usage. Use ${prefix}unmute <user>.**`)  
         }
     }
-}
-
-function unmuteLog(client, member, message, commandName)  
-{
-    if (!logsPlugin['Discord-Logs']['Enabled']) return
-
-    sql.query(`SELECT COUNT(*) AS cases FROM ${logsPlugin['Discord-Logs']['Table-Name']}`, function(err, rows, fields) 
-    {
-        var currentCase = undefined
-        sql.state === 'authenticated' ? currentCase = rows['0'].cases + 1 : undefined
-
-        //Embed
-        const loggingChannel = client.channels.cache.find(channel => channel.name === config['Main-Settings']['Logging-Channel'])
-        const date = new Date()  
-        const isoDate = date.toISOString().split('T')[0]   
-
-        const unmuteAddLog = new MessageEmbed()
-            .setColor('#ADD8E6')
-            .setTitle(`UNMUTE - Case #${currentCase}`)
-            .setFields
-            (
-                { name: 'User', value: `${member}`, inline: true},
-                { name: 'Moderator', value: `${message.author}`, inline: true},
-            )
-            .setThumbnail('attachment://Unmute.png')
-            .setFooter('Case created on ' + date.toUTCString())
-            
-        client.channels.cache.get(loggingChannel['id']).send({ embeds: [unmuteAddLog], files: ['src/icons/Unmute.png'] }) 
-        
-        //SQL
-        if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES 
-                (${currentCase}, 
-                '${commandName}', 
-                 ${member.id}, 
-                '${JSON.stringify(unmuteAddLog)}', 
-                '${isoDate}')`)
-    })
-}   
+} 
 
 function sendNotice(targetedMember, client)
 {

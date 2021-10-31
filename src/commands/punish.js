@@ -1,7 +1,7 @@
 const config = require('../../Configuration/config.json')
 const logsPlugin = require('../../Configuration/Plugins/logs.json')
-const { MessageEmbed, MessageActionRow, MessageSelectMenu } = require('discord.js')
-const index = require('../alice')
+const { MessageActionRow, MessageSelectMenu } = require('discord.js')
+const embedCreators = require('../utilities/embedCreators')
 const minecraftAPI = require('minecraft-api')
 
 const prefix = config['Main-Settings']['Command-Prefix']
@@ -52,7 +52,7 @@ async function punishmentLogger(client, message, args)
         
         punishmentSelector.addComponents(punishmentComponent)
 
-        const punishmentEmbed = index.embed(username, uuid, '-', '-', '-', server)
+        const punishmentEmbed = embedCreators.createPunishmentEmbed(username, uuid, '-', '-', '-', server)
 
         message.channel.send({ content: ':scales: **Select a punishment.**', embeds: [punishmentEmbed], components: [punishmentSelector] })
             .then(function (message) 

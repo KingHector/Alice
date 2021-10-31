@@ -1,5 +1,6 @@
 const chalk = require('chalk')
 const config = require('../../Configuration/config.json')
+const logsPlugin = require('../../Configuration/Plugins/logs.json')
 
 module.exports = (Discord, client, message) =>
 {
@@ -13,7 +14,7 @@ module.exports = (Discord, client, message) =>
     roleCreator(guild, 'Muted')
 
     //Channel Creator
-    channelCreator(guild, config['Main-Settings']['Logging-Channel'])
+    channelCreator(guild, logsPlugin['Discord-Logs']['Logging-Channel'])
 }
 
 function channelCreator(guild, name)

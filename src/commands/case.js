@@ -19,7 +19,6 @@ module.exports =
                         sql.query(`SELECT * FROM discordlogs WHERE CaseID = ${args[0]}`, function(err, caseNo, fields) 
                         {
                             const embedJSON = JSON.parse(caseNo[0]['Embed'])
-                            console.log(embedJSON['thumbnail'])
                             message.channel.send({ embeds: [embedJSON], files: ['src/icons/Warn.png'] })
                         })
                     }

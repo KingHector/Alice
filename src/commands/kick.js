@@ -1,7 +1,5 @@
 const config = require('../../Configuration/config.json')
-const logsPlugin = require('../../Configuration/Plugins/logs.json')
-const { MessageEmbed } = require('discord.js')
-const sql = require('../alice').getsql
+const embedCreators = require('../utilities/embedCreators')
 
 const prefix = config['Main-Settings']['Command-Prefix']
 
@@ -28,7 +26,7 @@ module.exports =
                         sendNotice(targetedMember, client, reason)
                         targetedMember.kick({ reason: args[1] })
                         message.channel.send(':boot: Successfully kicked <@' + member + '>.')
-                        kickLog(client, member, message, reason, this.name)
+                        embedCreators.log(client, '#FFA500', member, message, reason, 'KICK', true)
                     }
                     else //Member is Admin
                         message.channel.send('**You cannot kick this member.**')
@@ -42,45 +40,6 @@ module.exports =
                 message.channel.send(`:x: **Invalid usage. Use ${prefix}kick <user> __<reason>__.**`)  
         }
     }
-}
-
-function kickLog(client, member, message, reason, commandName)  
-{
-    if (!logsPlugin['Discord-Logs']['Enabled']) return
-
-    sql.query(`SELECT COUNT(*) AS cases FROM ${logsPlugin['Discord-Logs']['Table-Name']}`, function(err, rows, fields) 
-    {
-        var currentCase = undefined
-        sql.state === 'authenticated' ? currentCase = rows['0'].cases + 1 : undefined
-
-        //Embed
-        const loggingChannel = client.channels.cache.find(channel => channel.name === config['Main-Settings']['Logging-Channel'])
-        const date = new Date() 
-        const isoDate = date.toISOString().split('T')[0]    
-        
-        const kickAddLog = new MessageEmbed()
-            .setColor('#FFA500')
-            .setTitle(`KICK - Case #${currentCase}`)
-            .setFields
-            (
-                { name: 'User', value: `${member}`, inline: true},
-                { name: 'Moderator', value: `${message.author}`, inline: true},
-                { name: 'Reason', value: '```' + `${reason} ` + '```'}
-            )
-            .setThumbnail('attachment://Kick.png')
-            .setFooter('Case created on ' + date.toUTCString())
-            
-        client.channels.cache.get(loggingChannel['id']).send({ embeds: [kickAddLog], files: ['src/icons/Kick.png'] })   
-
-        //SQL
-        if (sql.state === 'authenticated')
-            sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES 
-                (${currentCase}, 
-                '${commandName}', 
-                 ${member.id}, 
-                '${JSON.stringify(kickAddLog)}', 
-                '${isoDate}')`)
-    })
 }
 
 function sendNotice(targetedMember, client, reason)

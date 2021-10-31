@@ -1,6 +1,6 @@
-const { MessageEmbed, MessageActionRow, MessageSelectMenu } = require('discord.js')
+const { MessageActionRow, MessageSelectMenu } = require('discord.js')
 const logsPlugin = require('../../Configuration/Plugins/logs.json')
-const index = require('../alice')
+const embedCreators = require('../utilities/embedCreators')
 
 let punishment
 let serverType
@@ -38,18 +38,18 @@ module.exports = (Discord, client, interaction) =>
 
                 if (server.length > 0)
                 {
-                    message.edit({ content: ':desktop: **Select a server.**', embeds: [index.embed(username, uuid, punishment, '-', '-', server)], components: [serverSelector] })
+                    message.edit({ content: ':desktop: **Select a server.**', embeds: [embedCreators.createPunishmentEmbed(username, uuid, punishment, '-', '-', server)], components: [serverSelector] })
                 }
                 else
                 {
-                    message.edit({ content: ':pencil: **Provide a punishment reason.**', embeds: [index.embed(username, uuid, punishment, '-', '-', server)], components: [] }) 
+                    message.edit({ content: ':pencil: **Provide a punishment reason.**', embeds: [embedCreators.createPunishmentEmbed(username, uuid, punishment, '-', '-', server)], components: [] }) 
                     addReason = true
                 }  
                 break
 
             case 'serverSelector':
                 serverType = interaction.values[0] 
-                message.edit({ content: ':pencil: **Provide a punishment reason.**', embeds: [index.embed(username, uuid, punishment, serverType, '-', server)], components: [] })
+                message.edit({ content: ':pencil: **Provide a punishment reason.**', embeds: [embedCreators.createPunishmentEmbed(username, uuid, punishment, serverType, '-', server)], components: [] })
                 addReason = true
                 break
         }

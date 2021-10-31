@@ -1,11 +1,11 @@
 const config = require('../../Configuration/config.json')
-const { MessageEmbed, GuildBan } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const sql = require('../alice').getsql
+const embedCreators = require('../utilities/embedCreators')
 
 module.exports = (Discord, client, ban) =>
 {
     unbanLog(client, ban)
-    console.log(ban.client.user)
 }
 
 function unbanLog(client, ban)  
@@ -35,5 +35,12 @@ function unbanLog(client, ban)
         //SQL
         if (sql.state === 'authenticated')
             sql.query(`INSERT INTO ${config['Database']['DiscordLogs-Table-Name']} VALUES (${currentCase}, 'UNBAN', ${ban.user.id}, '${JSON.stringify(unbanAddLog)}')`)
+
+        //Grab the case from the database and send it. Seems excessive but is required since SQL doesn't like '\n' on JSON.            
+        sql.query(`SELECT * FROM discordlogs WHERE CaseID = ${currentCase}`, function(err, caseNo, fields) 
+        {
+            const embedJSON = JSON.parse(caseNo[0]['Embed'])
+            message.channel.send({ embeds: [embedJSON], files: ['src/icons/Unban.png'] })
+        })           
     })
 }

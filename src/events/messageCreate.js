@@ -1,6 +1,5 @@
-const { MessageEmbed } = require('discord.js')
 const config = require('../../Configuration/config.json')
-const index = require('../alice')
+const embedCreators = require('../utilities/embedCreators')
 
 module.exports = (Discord, client, message) =>
 {
@@ -30,6 +29,6 @@ module.exports = (Discord, client, message) =>
         const server = require('./interactionCreate').getServerType
         const serverAmount = require('./interactionCreate').getServerAmount
 
-        punishmentMessage.edit({ embeds: [index.embed(username, uuid, punishment, server, message, serverAmount)] })
+        punishmentMessage.edit({ embeds: [embedCreators.createPunishmentEmbed(username, uuid, punishment, server, message, serverAmount)] })
     }
 }

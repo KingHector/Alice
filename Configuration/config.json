@@ -5,8 +5,6 @@
         "Server-ID": "883770811083796500",
         "Command-Prefix": "!",
 
-        "Logging-Channel": "modlog",
-
         "Status": "ONLINE",
         "Activity-Type": "PLAYING",
         "Activity-Message": "!help"
