@@ -13,6 +13,6 @@
 
         "Table-Name": "mclogs",
         "Punishments": ["BAN", "UNBAN", "KICK", "WARN", "MUTE", "UNMUTE"],
-        "Servers": ["SMP", "VANILLA"]
+        "Servers": []
     }
 }
