@@ -1,0 +1,26 @@
+{
+    "Message-On-Join":
+    {
+        "Enabled": false,
+        "Channel": "",
+        "Message": "Hey {user}, welcome to the server!"
+    },
+    "Private-Message-On-Join":
+    {
+        "Enabled": false,
+        "Message": "Hello {user}, we hope you have a great time on our server!"
+    },
+
+    "Give-Role-To-New-User": 
+    {
+        "Enabled": false,
+
+        "Roles": []
+    },
+    "Message-On-Leave": 
+    {
+        "Enabled": false,
+        "Channel": "",
+        "Message": "**{user}** just left the server."
+    }
+}
