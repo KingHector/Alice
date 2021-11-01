@@ -58,6 +58,7 @@ Your bot's config is located in **Configuration/config.json** and should look li
 The bot can have optional plugins enabled via the configs in the **Configuration/Plugins** folder. Just like the main config the options are tweakable to your needs.
 
 - [Logs](https://github.com/KingHector/Alice/blob/master/configuration/plugins/logs.md)
+- [Welcome](https://github.com/KingHector/Alice/blob/master/configuration/plugins/welcome.md)
 
 ### Starting Bot
 
