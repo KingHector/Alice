@@ -26,7 +26,7 @@ Now your bot is ready to be invited to your server. Head over to [this](https://
 
 ### Configuring The Bot
 
-## Main Config
+#### Main Config
 
 Your bot's config is located in **Configuration/config.json** and should look like this. Every single option is tweakable to your needs. If it's missing any lines be sure to add them.
 
@@ -53,7 +53,7 @@ Your bot's config is located in **Configuration/config.json** and should look li
 }
 ```
 
-## Plugins
+#### Plugins
 
 The bot can have optional plugins enabled via the configs in the **Configuration/Plugins** folder. Just like the main config the options are tweakable to your needs.
 
