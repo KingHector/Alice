@@ -2,9 +2,10 @@
     "Message-On-Join":
     {
         "Enabled": false,
-        "Channel": "",
+        "Channel": "welcome",
         "Message": "Hey {user}, welcome to the server!"
     },
+
     "Private-Message-On-Join":
     {
         "Enabled": false,
@@ -14,9 +15,9 @@
     "Give-Role-To-New-User": 
     {
         "Enabled": false,
-
         "Roles": []
     },
+
     "Message-On-Leave": 
     {
         "Enabled": false,

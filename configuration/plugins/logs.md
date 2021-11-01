@@ -2,7 +2,7 @@
 
 ## Discord Logs
 
-The Discrod Logs plugin allows you to log everything happening in your discord server in a database. It's config should look like this. If it's missing any lines be sure to add them.
+The **Discrod Logs** plugin allows you to log everything happening in your discord server in a database. It's config should look like this. If it's missing any lines be sure to add them.
 
 ```
 "Discord-Logs":
@@ -19,7 +19,7 @@ The Discrod Logs plugin allows you to log everything happening in your discord s
 
 ## Minecraft Logs
 
-The Minecraft Logs plugin allows you to manually log punishments from your minecraft server(s) in a database and it gives you access to the !punish command. It's config should look like this. If it's missing any lines be sure to add them.
+The **Minecraft Logs** plugin allows you to manually log punishments from your minecraft server(s) in a database and it gives you access to the !punish command. It's config should look like this. If it's missing any lines be sure to add them.
 
 ```
 "Minecraft-Logs":
