@@ -9,7 +9,7 @@
 
     "Minecraft-Logs":
     {
-        "Enabled": true,
+        "Enabled": false,
 
         "Table-Name": "mclogs",
         "Punishments": ["BAN", "UNBAN", "KICK", "WARN", "MUTE", "UNMUTE"],

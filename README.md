@@ -3,6 +3,8 @@ Moderation Discord Bot made for self hosting it. Works on it's own or with plugi
 
 ## Commands
 
+These are the main commands. Some plugins have their own commands that will be enabled alongside with the plugin. Those are listed on the plugin's config.
+
 - !help `Shows a list of all commands and their description.`
 - !ping `Show the latency in milliseconds.`
 - !ban &lt;user&gt; &lt;reason&gt; `Bans any user from your server. Reason is optional.`
