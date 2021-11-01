@@ -15,9 +15,6 @@
         "Host": "localhost",
         "User": "root",
         "Password": "",
-        "Database": "test",
-
-        "DiscordLogs-Table-Name": "discordlogs"
-
+        "Database": "test"
     }
 }

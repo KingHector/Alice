@@ -24,7 +24,9 @@ After you set your application credentials, head over to the **Bot** section and
 
 Now your bot is ready to be invited to your server. Head over to [this](https://discordapi.com/permissions.html#8) site check Administrator and insert your Client ID which is located in the General Information section (Application ID). Now click the generated link and add the bot to the server.
 
-### Config Setup
+### Configuring The Bot
+
+## Main Config
 
 Your bot's config is located in **Configuration/config.json** and should look like this. Every single option is tweakable to your needs. If it's missing any lines be sure to add them.
 
@@ -36,8 +38,6 @@ Your bot's config is located in **Configuration/config.json** and should look li
         "Server-ID": "YOUR-SERVER-ID",
         "Command-Prefix": "!",
 
-        "Logging-Channel": "modlog",
-
         "Status": "ONLINE",
         "Activity-Type": "PLAYING",
         "Activity-Message": "!help"
@@ -48,12 +48,14 @@ Your bot's config is located in **Configuration/config.json** and should look li
         "Host": "localhost",
         "User": "root",
         "Password": "",
-        "Database": "test",
-
-        "DiscordLogs-Table-Name": "discordlogs"
+        "Database": "test"
     }
 }
 ```
+
+## Plugins
+
+The bot can have optional plugins enabled via the configs in the **Configuration/Plugins** folder. Just like the main config the options are tweakable to your needs.
 
 ### Starting Bot
 
