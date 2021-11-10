@@ -5,10 +5,10 @@
 The **Discrod Moderation** plugin enables the moderation commands that can be found below. It's config should look like this. If it's missing any lines be sure to add them.
 
 ```
- "Discord-Moderation":
-    {
-        "enabled": true
-    }
+"Discord-Moderation":
+{
+    "enabled": true
+}
 ```
 
 ### Commands 
