@@ -1,6 +1,8 @@
 const config = require('../../Configuration/config.json')
-const logsPlugin = require('../../Configuration/Plugins/logs.json')
+const moderationPlugin = require('../../configuration/plugins/moderation.json')
 const embedCreators = require('../utilities/embedCreators')
+
+if (!moderationPlugin['Discord-Moderation']['enabled']) return
 
 module.exports = 
 {
@@ -9,35 +11,33 @@ module.exports =
 
     async execute(client, message, args, Discord)
     {
+        if (!message.member.permissions.has('ADMINISTRATOR')) return
+
         const member = message.mentions.users.first()
         let role = message.guild.roles.cache.find(role => role.name === 'Muted')
 
-        if (message.member.permissions.has('ADMINISTRATOR'))
+        if (args.length >= 1)
         {
-            if (args.length >= 1)
+            try
             {
-                try
+                const targetedMember = message.guild.members.cache.get(member.id)
+                if (targetedMember.roles.cache.some(role => role.name === 'Muted'))
                 {
-                    const targetedMember = message.guild.members.cache.get(member.id)
-
-                    if (targetedMember.roles.cache.some(role => role.name === 'Muted'))
-                    {
-                        sendNotice(targetedMember, client)
-                        targetedMember.roles.remove(role)
-                        message.channel.send(':loud_sound: Successfully unmuted <@' + member + '>.')
-                        embedCreators.log(client, '#ADD8E6', member, message, null, 'UNMUTE', false)
-                    }
-                    else //Member is not muted
-                        message.channel.send('**Member is not muted.**')
+                    sendNotice(targetedMember, client)
+                    targetedMember.roles.remove(role)
+                    message.channel.send(':loud_sound: Successfully unmuted <@' + member + '>.')
+                    embedCreators.log(client, '#ADD8E6', member, message, null, 'UNMUTE', false)
                 }
-                catch (error) //Pinged role instead of user
-                {
-                    message.channel.send(`:x: **Invalid usage. Use ${prefix}unmute <user>.**`)  
-                }        
+                else //Member is not muted
+                    message.channel.send('**Member is not muted.**')
             }
-            else //No member specified
+            catch (error) //Pinged role instead of user
+            {
                 message.channel.send(`:x: **Invalid usage. Use ${prefix}unmute <user>.**`)  
+            }        
         }
+        else //No member specified
+            message.channel.send(`:x: **Invalid usage. Use ${prefix}unmute <user>.**`)  
     }
 } 
 

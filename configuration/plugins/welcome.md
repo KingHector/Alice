@@ -10,7 +10,7 @@ The **Message On Join** plugin allows the bot to send a message on a specified c
     "Enabled": true,
     "Channel": "welcome",
     "Message": "Hey {user}, welcome to the server!"
-},
+}
 ```
 
 **Channel** is the channel in which the bot will send the welcome message.
@@ -25,7 +25,7 @@ The **Private Message On Join** plugin allows the bot to send a private message 
 {
     "Enabled": true,
     "Message": "Hello {user}, we hope you have a great time on our server!"
-},
+}
 ```
 
 **Message** is the message the bot will send to the user. 
@@ -39,7 +39,7 @@ The **Give Role To New User** plugin allows the bot to give specified roles to e
 {
     "Enabled": true,
     "Roles": []
-},
+}
 ```
 
 **Roles** is a list of roles that the bot will give the new users.

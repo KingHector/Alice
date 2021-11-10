@@ -1,7 +1,9 @@
 const config = require('../../Configuration/config.json')
+const moderationPlugin = require('../../configuration/plugins/moderation.json')
+const prefix = config['Main-Settings']['Command-Prefix']
 const embedCreators = require('../utilities/embedCreators')
 
-const prefix = config['Main-Settings']['Command-Prefix']
+if (!moderationPlugin['Discord-Moderation']['enabled']) return
 
 module.exports = 
 {
@@ -10,36 +12,35 @@ module.exports =
 
     async execute(client, message, args, Discord)
     {
-        const member = message.mentions.users.first()
+        if (!message.member.permissions.has('ADMINISTRATOR')) return
 
-        if (message.member.permissions.has('ADMINISTRATOR'))
+        const member = message.mentions.users.first()
+        
+        if (args.length >= 1)
         {
-            if (args.length >= 1)
+            const reason = message.content.slice(prefix.length + 2).slice(this.name.length).slice(args[0].length)
+            
+            try
             {
-                const reason = message.content.slice(prefix.length + 2).slice(this.name.length).slice(args[0].length)
+                const targetedMember = message.guild.members.cache.get(member.id)
                 
-                try
+                if (!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot)
                 {
-                    const targetedMember = message.guild.members.cache.get(member.id)
-                    
-                    if (!targetedMember.permissions.has('ADMINISTRATOR') || targetedMember.user.bot)
-                    {
-                        sendNotice(targetedMember, client, reason)
-                        targetedMember.ban({ reason: args[1] })
-                        message.channel.send(':hammer: Successfully banned <@' + member + '>.')
-                        embedCreators.log(client, '#FFFF00', member, message, reason, 'BAN', true)
-                    }
-                    else //Member is Admin
-                        message.channel.send('**You cannot ban this member.**')
+                    sendNotice(targetedMember, client, reason)
+                    targetedMember.ban({ reason: args[1] })
+                    message.channel.send(':hammer: Successfully banned <@' + member + '>.')
+                    embedCreators.log(client, '#FFFF00', member, message, reason, 'BAN', true)
                 }
-                catch (error) //Pinged role instead of user
-                {
-                    message.channel.send(`:x: **Invalid usage. Use ${prefix}ban <user> __<reason>__.**`) 
-                }
+                else //Member is Admin
+                    message.channel.send('**You cannot ban this member.**')
             }
-            else //No member specified
-                message.channel.send(`:x: **Invalid usage. Use ${prefix}ban <user> __<reason>__.**`)  
+            catch (error) //Pinged role instead of user
+            {
+                message.channel.send(`:x: **Invalid usage. Use ${prefix}ban <user> __<reason>__.**`) 
+            }
         }
+        else //No member specified
+            message.channel.send(`:x: **Invalid usage. Use ${prefix}ban <user> __<reason>__.**`)  
     }
 }
 

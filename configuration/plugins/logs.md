@@ -11,7 +11,7 @@ The **Discrod Logs** plugin allows you to log everything happening in your disco
     
     "Logging-Channel": "modlog",
     "Table-Name": "discordlogs"
-},
+}
 ```
 
 - **Logging-Channel** is the name of the channel that the bot will log the punishments. If it doesn't exist the bot will automatically create it.
@@ -34,3 +34,7 @@ The **Minecraft Logs** plugin allows you to manually log punishments from your m
 - **Table-Name** is the name of the table that exists in the database.
 - **Punishments** is a list of punishments that exist on your server and will appear on the selection menu.
 - **Servers** is a list of your servers, in case you have more than one and want to log punishments for each one individually. By adding one or more values in the list the server selection menu will be enabled. 
+
+### Commands
+
+- !punish &lt;minecraftUser&gt; `Log a punishment from your Minecraft Server.`

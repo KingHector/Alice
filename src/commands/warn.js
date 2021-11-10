@@ -1,6 +1,9 @@
 const config = require('../../Configuration/config.json')
+const moderationPlugin = require('../../configuration/plugins/moderation.json')
 const prefix = config['Main-Settings']['Command-Prefix']
 const embedCreators = require('../utilities/embedCreators')
+
+if (!moderationPlugin['Discord-Moderation']['enabled']) return
 
 module.exports = 
 {
@@ -9,30 +12,28 @@ module.exports =
 
     async execute(client, message, args, discord)
     {
+        if (!message.member.permissions.has('ADMINISTRATOR')) return
+
         const member = message.mentions.users.first()
         
-        if (message.member.permissions.has('ADMINISTRATOR'))
+        if (args.length >= 2)
         {
-            if (args.length >= 2)
+            const reason = message.content.slice(prefix.length + 2).slice(this.name.length).slice(args[0].length)
+            try
             {
-                const reason = message.content.slice(prefix.length + 2).slice(this.name.length).slice(args[0].length)
-
-                try
-                {
-                    const targetedMember = message.guild.members.cache.get(member.id)
-                    
-                    sendNotice(targetedMember, client, reason)
-                    message.channel.send(':warning: Successfully warned <@' + member + '>.')
-                    embedCreators.log(client, '#00FF00', member, message, reason, 'WARN', true)
-                }
-                catch (error) //Pinged role instead of user
-                {
-                    message.channel.send(`:x: **Invalid usage. Use ${prefix}warn <user> <reason>.**`)  
-                }           
+                const targetedMember = message.guild.members.cache.get(member.id)
+                
+                sendNotice(targetedMember, client, reason)
+                message.channel.send(':warning: Successfully warned <@' + member + '>.')
+                embedCreators.log(client, '#00FF00', member, message, reason, 'WARN', true)
             }
-            else //No member specified
+            catch (error) //Pinged role instead of user
+            {
                 message.channel.send(`:x: **Invalid usage. Use ${prefix}warn <user> <reason>.**`)  
+            }           
         }
+        else //No member specified
+            message.channel.send(`:x: **Invalid usage. Use ${prefix}warn <user> <reason>.**`)  
     }
 }
 

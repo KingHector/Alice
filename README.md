@@ -1,21 +1,6 @@
 # Alice
 Moderation Discord Bot made for self hosting it. Works on it's own or with plugins.
 
-## Commands
-
-These are the main commands. Some plugins have their own commands that will be enabled alongside with the plugin. Those are listed on the plugin's config.
-
-- !help `Shows a list of all commands and their description.`
-- !ping `Show the latency in milliseconds.`
-- !ban &lt;user&gt; &lt;reason&gt; `Bans any user from your server. Reason is optional.`
-- !kick &lt;user&gt; &lt;reason&gt; `Kicks any user from your server. Reason is optional.`
-- !mute &lt;user&gt; &lt;reason&gt; `Mutes any user in your server. Reason is optional.`
-- !unmute &lt;user&gt; `Unmutes any muted user from your server.`
-- !warn &lt;user&gt; &lt;reason&gt; `Warns any user in your server.`
-- !inquire &lt;user&gt; `Shows all the punishments a user has received.`
-- !case &lt;caseNumber&gt; `Shows the punishment case specified.`
-- !clear &lt;amount&gt; `Clear up to 100 messages.`
-
 ## How To Use
 
 ### Bot Setup
@@ -60,6 +45,7 @@ Your bot's config is located in **Configuration/config.json** and should look li
 The bot can have optional plugins enabled via the configs in the **Configuration/Plugins** folder. Just like the main config the options are tweakable to your needs.
 
 - [Logs](https://github.com/KingHector/Alice/blob/master/configuration/plugins/logs.md)
+- [Moderation](https://github.com/KingHector/Alice/blob/master/configuration/plugins/moderation.md)
 - [Welcome](https://github.com/KingHector/Alice/blob/master/configuration/plugins/welcome.md)
 
 ### Starting Bot

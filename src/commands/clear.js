@@ -1,6 +1,8 @@
 const config = require('../../Configuration/config.json')
-
+const moderationPlugin = require('../../configuration/plugins/moderation.json')
 const prefix = config['Main-Settings']['Command-Prefix']
+
+if (!moderationPlugin['Discord-Moderation']['enabled']) return
 
 module.exports = 
 {
@@ -9,27 +11,26 @@ module.exports =
 
     async execute(client, message, args, Discord)
     {
-        if (message.member.permissions.has('ADMINISTRATOR'))
+        if (!message.member.permissions.has('ADMINISTRATOR')) return
+        
+        if (args.length >= 1)
         {
-            if (args.length >= 1)
+            if (args[0] <= 100 && args[0] >= 1)
             {
-                if (args[0] <= 100 && args[0] >= 1)
+                message.delete()
+                message.channel.messages.fetch({limit: args[0]}).then(m =>
                 {
-                    message.delete()
-                    message.channel.messages.fetch({limit: args[0]}).then(m =>
-                    {
-                        message.channel.bulkDelete(m, true);
-                        message.channel.send('**Clearing...**').then(me =>
-                            {
-                                me.delete()
-                            })
-                    })
-                }
-                else //Wrong amount specified
-                    message.channel.send(':x: **Invalid usage. Amount must be a number between 1 and 100.**')  
+                    message.channel.bulkDelete(m, true);
+                    message.channel.send('**Clearing...**').then(me =>
+                        {
+                            me.delete()
+                        })
+                })
             }
-            else //No amount specified
-                message.channel.send(`:x: **Invalid usage. Use ${prefix}clear <amount>.**`)  
+            else //Wrong amount specified
+                message.channel.send(':x: **Invalid usage. Amount must be a number between 1 and 100.**')  
         }
+        else //No amount specified
+            message.channel.send(`:x: **Invalid usage. Use ${prefix}clear <amount>.**`)  
     }
 }

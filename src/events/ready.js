@@ -1,10 +1,10 @@
-const chalk = require('chalk')
 const config = require('../../Configuration/config.json')
 const logsPlugin = require('../../Configuration/Plugins/logs.json')
+const consoleLogger = require('../utilities/consoleLogger')
 
 module.exports = (Discord, client, message) =>
 {
-    console.log(chalk.blueBright('[INFO] Bot Online.'))
+    consoleLogger.createLog('INFO', 'Bot online!')
     client.user.setActivity(config['Main-Settings']['Activity-Message'], { type: config['Main-Settings']['Activity-Type'] })
     client.user.setStatus(config['Main-Settings']['Status'])
     

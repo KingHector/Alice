@@ -3,8 +3,9 @@ const logsPlugin = require('../../Configuration/Plugins/logs.json')
 const { MessageActionRow, MessageSelectMenu } = require('discord.js')
 const embedCreators = require('../utilities/embedCreators')
 const minecraftAPI = require('minecraft-api')
-
 const prefix = config['Main-Settings']['Command-Prefix']
+
+if (!logsPlugin['Minecraft-Logs']['Enabled']) return
 
 module.exports = 
 {
@@ -13,18 +14,14 @@ module.exports =
     
     async execute(client, message, args, discord)
     {
-        if (message.member.permissions.has('ADMINISTRATOR'))
+        if (!message.member.permissions.has('ADMINISTRATOR')) return
+
+        if (args.length >= 1)
         {
-            if (logsPlugin['Minecraft-Logs']['Enabled'])
-            {
-                if (args.length >= 1)
-                {
-                    punishmentLogger(client, message, args)
-                }
-                else //No MC user specified
-                    message.channel.send(`:x: **Invalid usage. Use ${prefix}punish <username>.**`)
-            }
+            punishmentLogger(client, message, args)
         }
+        else //No MC user specified
+            message.channel.send(`:x: **Invalid usage. Use ${prefix}punish <username>.**`)                  
     }
 }
 

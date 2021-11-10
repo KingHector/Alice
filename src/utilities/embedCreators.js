@@ -1,5 +1,4 @@
 const Discord = require('discord.js')
-const chalk = require('chalk')
 const crafatar = require('crafatar')
 const sql = require('../alice').getsql
 const logsPlugin = require('../../Configuration/Plugins/logs.json')

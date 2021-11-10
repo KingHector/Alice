@@ -1,7 +1,6 @@
 const config = require('../../Configuration/config.json')
 const { MessageEmbed } = require('discord.js')
 const sql = require('../alice').getsql
-const embedCreators = require('../utilities/embedCreators')
 
 module.exports = (Discord, client, ban) =>
 {

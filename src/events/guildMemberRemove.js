@@ -1,5 +1,5 @@
-const chalk = require('chalk')
 const welcomeConfig = require('../../Configuration/Plugins/welcome.json')
+const consoleLogger = require('../utilities/consoleLogger')
 
 module.exports = (Discord, client, remove) =>
 {
@@ -13,7 +13,7 @@ module.exports = (Discord, client, remove) =>
         }    
         catch (error)
         {
-            console.log(chalk.red('[ERROR] Plugin: Welcome/Message-On-Leave is not configured properly.'))
+            consoleLogger.createLog('ERROR', 'Plugin Welcome/Message-On-Leave is not configured properly.')
         }
     }
 }

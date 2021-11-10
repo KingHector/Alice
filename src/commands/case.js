@@ -1,6 +1,8 @@
 const logsPlugin = require('../../Configuration/Plugins/logs.json')
 const sql = require('../alice').getsql
 
+if (!logsPlugin['Discord-Logs']['Enabled']) return
+
 module.exports = 
 {
     name: 'case',
@@ -8,26 +10,22 @@ module.exports =
 
     async execute(client, message, args, Discord)
     {
-        if (logsPlugin['Discord-Logs']['Enabled'])
+        if (!message.member.permissions.has('ADMINISTRATOR')) return
+
+        if (sql.state === 'authenticated')
         {
-            if (sql.state === 'authenticated')
+            if (args.length >= 1)
             {
-                if (message.member.permissions.has('ADMINISTRATOR'))
+                sql.query(`SELECT * FROM discordlogs WHERE CaseID = ${args[0]}`, function(err, caseNo, fields) 
                 {
-                    if (args.length >= 1)
-                    {
-                        sql.query(`SELECT * FROM discordlogs WHERE CaseID = ${args[0]}`, function(err, caseNo, fields) 
-                        {
-                            const embedJSON = JSON.parse(caseNo[0]['Embed'])
-                            message.channel.send({ embeds: [embedJSON], files: ['src/icons/Warn.png'] })
-                        })
-                    }
-                    else //No case specified
-                        message.channel.send(`:x: **Invalid usage. Use ${prefix}case <caseNumber>.**`)
-                }
+                    const embedJSON = JSON.parse(caseNo[0]['Embed'])
+                    message.channel.send({ embeds: [embedJSON], files: ['src/icons/Warn.png'] })
+                })
             }
-            else //Database offline
-                message.channel.send(':x: **Cannot receive cases from database.**')
+            else //No case specified
+                message.channel.send(`:x: **Invalid usage. Use ${prefix}case <caseNumber>.**`)
         }
+        else //Database offline
+            message.channel.send(':x: **Cannot receive cases from database.**')
     }   
 }
