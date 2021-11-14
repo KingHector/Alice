@@ -5,8 +5,6 @@ const embedCreators = require('../utilities/embedCreators')
 const minecraftAPI = require('minecraft-api')
 const prefix = config['Main-Settings']['Command-Prefix']
 
-if (!logsPlugin['Minecraft-Logs']['Enabled']) return
-
 module.exports = 
 {
     name: 'punish',
@@ -15,6 +13,7 @@ module.exports =
     async execute(client, message, args, discord)
     {
         if (!message.member.permissions.has('ADMINISTRATOR')) return
+        if (!logsPlugin['Minecraft-Logs']['Enabled']) return
 
         if (args.length >= 1)
         {

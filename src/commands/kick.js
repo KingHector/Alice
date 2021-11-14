@@ -3,8 +3,6 @@ const moderationPlugin = require('../../configuration/plugins/moderation.json')
 const prefix = config['Main-Settings']['Command-Prefix']
 const embedCreators = require('../utilities/embedCreators')
 
-if (!moderationPlugin['Discord-Moderation']['enabled']) return
-
 module.exports = 
 {
     name: 'kick',
@@ -13,6 +11,7 @@ module.exports =
     async execute(client, message, args, Discord)
     {
         if (!message.member.permissions.has('ADMINISTRATOR')) return
+        if (!moderationPlugin['Discord-Moderation']['enabled']) return
 
         const member = message.mentions.users.first()
         

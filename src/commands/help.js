@@ -11,20 +11,9 @@ module.exports =
 
     async execute(client, message, args, Discord)
     {
-        var commandsList = ''
-        var descriptionList = ''
-
-        const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'))
-
-        for (const file of commandFiles)
-        {
-            commandsList += prefix + file.replace('.js', '') + '\n'
-            descriptionList += client.commands.get(file.replace('.js', '')).description + '\n' 
-        }
-
         const helpEmbed = new MessageEmbed()
-            .setColor('#cec4ff')
-            .setTitle('Commands')
+            .setColor('#0099ff')
+            .setTitle('General Commands')
             .setFields
             (
                 { name: 'Command', value: commandsList, inline: true},

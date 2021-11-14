@@ -2,8 +2,6 @@ const config = require('../../Configuration/config.json')
 const moderationPlugin = require('../../configuration/plugins/moderation.json')
 const embedCreators = require('../utilities/embedCreators')
 
-if (!moderationPlugin['Discord-Moderation']['enabled']) return
-
 module.exports = 
 {
     name: 'unmute',
@@ -12,6 +10,7 @@ module.exports =
     async execute(client, message, args, Discord)
     {
         if (!message.member.permissions.has('ADMINISTRATOR')) return
+        if (!moderationPlugin['Discord-Moderation']['enabled']) return
 
         const member = message.mentions.users.first()
         let role = message.guild.roles.cache.find(role => role.name === 'Muted')

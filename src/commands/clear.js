@@ -2,8 +2,6 @@ const config = require('../../Configuration/config.json')
 const moderationPlugin = require('../../configuration/plugins/moderation.json')
 const prefix = config['Main-Settings']['Command-Prefix']
 
-if (!moderationPlugin['Discord-Moderation']['enabled']) return
-
 module.exports = 
 {
     name: 'clear',
@@ -12,6 +10,7 @@ module.exports =
     async execute(client, message, args, Discord)
     {
         if (!message.member.permissions.has('ADMINISTRATOR')) return
+        if (!moderationPlugin['Discord-Moderation']['enabled']) return
         
         if (args.length >= 1)
         {

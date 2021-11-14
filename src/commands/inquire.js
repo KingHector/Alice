@@ -1,8 +1,6 @@
 const logsPlugin = require('../../Configuration/Plugins/logs.json')
 const { MessageEmbed } = require('discord.js')
 const sql = require('../alice').getsql
-
-if (!logsPlugin['Discord-Logs']['Enabled']) return
        
 module.exports = 
 {
@@ -12,6 +10,7 @@ module.exports =
     async execute(client, message, args, Discord)
     {
         if (!message.member.permissions.has('ADMINISTRATOR')) return
+        if (!logsPlugin['Discord-Logs']['Enabled']) return
 
         const member = message.mentions.users.first()
 
