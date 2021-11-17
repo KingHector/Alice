@@ -5,7 +5,7 @@ Moderation Discord Bot made for self hosting it. Works on it's own or with plugi
 
 ### Bot Setup
 
-Fist things first you need to head over to [Discord Developer Portal](https://discord.com/developers/applications) and create a new application. Set an Name and optionally an Icon and Description (Name and Icon will not be visible to other people this is just a general name, the Description will show up in the bots About Me section).
+First things first you need to head over to [Discord Developer Portal](https://discord.com/developers/applications) and create a new application. Set an Name and optionally an Icon and Description (Name and Icon will not be visible to other people this is just a general name, the Description will show up in the bots About Me section).
 
 After you set your application credentials, head over to the **Bot** section and set a Username and Icon for your bot. Your bot **Token** will be used on the config. Make sure you do not share it and keep it hidden. Also make sure you enable **Server Members Intent**.
 
