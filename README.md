@@ -1,5 +1,5 @@
 # Alice
-Moderation Discord Bot made for self hosting it. Works on it's own or with plugins.
+Moderation Discord Bot made for self hosting.
 
 ## How To Use
 
