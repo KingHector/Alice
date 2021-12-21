@@ -9,7 +9,7 @@
         "@discordjs/rest": "^0.1.0-canary.0",
         "chalk": "^4.1.2",
         "crafatar": "^1.1.0",
-        "discord-api-types": "^0.24.0",
+        "discord-api-types": "^0.25.0",
         "discord.js": "^13.3.0-dev.1634990584.579569a",
         "minecraft-api": "^0.0.2",
         "mysql": "^2.18.1",
