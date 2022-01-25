@@ -5,7 +5,7 @@
     "main": "src/alice.js",
     "author": "King_Hector",
     "dependencies": {
-        "@discordjs/builders": "^0.8.2",
+        "@discordjs/builders": "^0.11.0",
         "@discordjs/rest": "^0.1.0-canary.0",
         "chalk": "^4.1.2",
         "crafatar": "^1.1.0",
